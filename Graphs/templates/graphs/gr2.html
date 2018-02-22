@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>NET*WORKS 1.0</title>
+  <meta name="description" content="">
+  <meta name="author" content="Daniel Chafamo">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  {% load staticfiles %}
+
+  <link rel="stylesheet" href="{% static 'graphs/css/normalize.css' %}">
+  <link rel="stylesheet" href="{% static 'graphs/css/skeleton.css' %}">
+  <link rel="stylesheet" href="{% static 'graphs/css/graph.css' %}">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="{% static 'graphs/images/net*works.png' %}">
+
+  <!-- Page specifics
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  {% block head %}{% endblock head %}
+</head>
+<body>
+
+  {% block body %}{% endblock body %}
+
+    <div class="container">
+      <div class="row">
+        
+        <div class="four columns" style="margin-top: 2%"></div>
+        <div class="four columns" style="margin-top: 2%">
+          <form id="target">
+            <label for="patientID">Search</label>
+            <input type="search" class="u-full-width" placeholder="Patient ID" id="patientID" required>
+            <!-- <label for="month">Reason for contacting</label> -->
+            <select class="u-full-width" id="month">
+              <option value="_0">Enrollment</option>
+              <option value="_3">Three month</option>
+              <option value="_6">Six month</option>
+            </select>
+            <input class="button-primary" type="submit" value="Generate">
+          </form>
+        </div>  
+        <div class="four columns" style="margin-top: 2%"></div>
+      </div>
+      <div class="row">
+        <div class="three columns" style="margin-top: 0%">
+          <h5>Samples</h5><div class="pIDs" id="pIDs"></div> 
+          <h5>Properties</h5>
+          <div>
+            <form>  
+              <!-- Rounded switch -->
+              <h6><label class="switch">
+                <input type="checkbox" id="thersholdSlider">
+                <span class="slider round"></span>
+              </label>   Strong only</h6> 
+            </form>
+          </div>
+        </div>
+        <div class="nine columns" style="margin-top: 0%">
+          <div id="d3-container"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STYLES AND SCRIPTS -->
+    <script>var graph = {% autoescape off %}{{ data }}{% endautoescape %};</script>
+    <script>
+        for (var i = 12; i <= 19; i++) {
+          var button = document.createElement("button");
+          document.getElementById("pIDs").appendChild(button);
+          button.value = i + '_' + 0;
+          button.id = i + '_' + 0;
+          button.classList.add('pref'); 
+          document.getElementById(i+'_'+0).innerHTML = 'ID: ' + i + ', MONTH: ' + 0;
+        }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src='http://d3js.org/d3.v3.min.js'></script>
+    <script type="text/javascript" src="{% static 'graphs/js/graph.js' %}" ></script>
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

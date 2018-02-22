@@ -1,0 +1,254 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Joshua", 
+            "degree": 7, 
+            "id": 0
+        }, 
+        {
+            "name": "Sharon", 
+            "degree": 5, 
+            "id": 1
+        }, 
+        {
+            "name": "Demetria", 
+            "degree": 7, 
+            "id": 2
+        }, 
+        {
+            "name": "Kiyah", 
+            "degree": 8, 
+            "id": 3
+        }, 
+        {
+            "name": "Kaya", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Joary", 
+            "degree": 5, 
+            "id": 5
+        }, 
+        {
+            "name": "Aaron", 
+            "degree": 7, 
+            "id": 6
+        }, 
+        {
+            "name": "Kwanee", 
+            "degree": 0, 
+            "id": 7
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 9, 
+            "id": 8
+        }, 
+        {
+            "name": "Dorel", 
+            "degree": 6, 
+            "id": 9
+        }, 
+        {
+            "name": "Corey", 
+            "degree": 0, 
+            "id": 10
+        }, 
+        {
+            "name": "Joyce", 
+            "degree": 0, 
+            "id": 11
+        }, 
+        {
+            "name": "Avis", 
+            "degree": 0, 
+            "id": 12
+        }, 
+        {
+            "name": "Javon", 
+            "degree": 9, 
+            "id": 13
+        }, 
+        {
+            "name": "Marcella", 
+            "degree": 5, 
+            "id": 14
+        }
+    ], 
+    "links": [
+        {
+            "source": 0, 
+            "target": 1, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 0, 
+            "target": 2, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 0, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 14, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 1, 
+            "target": 8, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 1, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 5, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 9, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 9, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 8, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 9, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 9, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 8, 
+            "target": 9, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 8, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 8, 
+            "target": 14, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 9, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 13, 
+            "target": 14, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

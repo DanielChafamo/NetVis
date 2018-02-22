@@ -1,0 +1,59 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Qian", 
+            "degree": 3, 
+            "id": 0
+        }, 
+        {
+            "name": "Wei", 
+            "degree": 3, 
+            "id": 1
+        }, 
+        {
+            "name": "Hualin", 
+            "degree": 3, 
+            "id": 2
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 3, 
+            "id": 3
+        }
+    ], 
+    "links": [
+        {
+            "source": 0, 
+            "target": 1, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 2, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 2, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 3, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

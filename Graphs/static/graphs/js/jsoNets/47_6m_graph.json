@@ -1,0 +1,104 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Amber", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Susan", 
+            "degree": 3, 
+            "id": 1
+        }, 
+        {
+            "name": "Ed", 
+            "degree": 3, 
+            "id": 2
+        }, 
+        {
+            "name": "Dr. Delaneye", 
+            "degree": 0, 
+            "id": 3
+        }, 
+        {
+            "name": "Jeff", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Jennifer", 
+            "degree": 3, 
+            "id": 5
+        }, 
+        {
+            "name": "Aaron", 
+            "degree": 0, 
+            "id": 6
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 3, 
+            "id": 7
+        }, 
+        {
+            "name": "Bob", 
+            "degree": 0, 
+            "id": 8
+        }, 
+        {
+            "name": "John", 
+            "degree": 0, 
+            "id": 9
+        }, 
+        {
+            "name": "Mary", 
+            "degree": 0, 
+            "id": 10
+        }, 
+        {
+            "name": "David", 
+            "degree": 0, 
+            "id": 11
+        }, 
+        {
+            "name": "Carol", 
+            "degree": 0, 
+            "id": 12
+        }
+    ], 
+    "links": [
+        {
+            "source": 1, 
+            "target": 2, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 5, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 1, 
+            "target": 7, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 7, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 7, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

@@ -1,0 +1,144 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Sarah", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Allan", 
+            "degree": 5, 
+            "id": 1
+        }, 
+        {
+            "name": "Lois", 
+            "degree": 5, 
+            "id": 2
+        }, 
+        {
+            "name": "Gladys", 
+            "degree": 3, 
+            "id": 3
+        }, 
+        {
+            "name": "Clyde", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 7, 
+            "id": 5
+        }, 
+        {
+            "name": "Linda", 
+            "degree": 1, 
+            "id": 6
+        }, 
+        {
+            "name": "Clyde R", 
+            "degree": 0, 
+            "id": 7
+        }, 
+        {
+            "name": "Frances", 
+            "degree": 0, 
+            "id": 8
+        }, 
+        {
+            "name": "Amanda", 
+            "degree": 1, 
+            "id": 9
+        }, 
+        {
+            "name": "Dr. Staten", 
+            "degree": 4, 
+            "id": 10
+        }, 
+        {
+            "name": "Thelma", 
+            "degree": 4, 
+            "id": 11
+        }
+    ], 
+    "links": [
+        {
+            "source": 1, 
+            "target": 10, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 1, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 1, 
+            "target": 2, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 1, 
+            "target": 3, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 1, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 10, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 3, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 6, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 9, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 10, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 10, 
+            "target": 11, 
+            "weight": 1.0
+        }
+    ], 
+    "multigraph": false
+}

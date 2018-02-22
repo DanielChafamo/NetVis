@@ -1,0 +1,89 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Tawanda", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Keisha", 
+            "degree": 4, 
+            "id": 1
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 4, 
+            "id": 2
+        }, 
+        {
+            "name": "Kyasha", 
+            "degree": 4, 
+            "id": 3
+        }, 
+        {
+            "name": "Kshe", 
+            "degree": 4, 
+            "id": 4
+        }, 
+        {
+            "name": "Kevin", 
+            "degree": 4, 
+            "id": 5
+        }
+    ], 
+    "links": [
+        {
+            "source": 1, 
+            "target": 2, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 4, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 4, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 4, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 5, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

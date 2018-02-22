@@ -1,0 +1,194 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Joshua", 
+            "degree": 5, 
+            "id": 0
+        }, 
+        {
+            "name": "Sharon", 
+            "degree": 0, 
+            "id": 1
+        }, 
+        {
+            "name": "Demetria", 
+            "degree": 5, 
+            "id": 2
+        }, 
+        {
+            "name": "Kiyah", 
+            "degree": 0, 
+            "id": 3
+        }, 
+        {
+            "name": "Kaya", 
+            "degree": 7, 
+            "id": 4
+        }, 
+        {
+            "name": "Joary", 
+            "degree": 0, 
+            "id": 5
+        }, 
+        {
+            "name": "Aaron", 
+            "degree": 6, 
+            "id": 6
+        }, 
+        {
+            "name": "Kwanee", 
+            "degree": 3, 
+            "id": 7
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 8, 
+            "id": 8
+        }, 
+        {
+            "name": "Dorel", 
+            "degree": 2, 
+            "id": 9
+        }, 
+        {
+            "name": "Corey", 
+            "degree": 0, 
+            "id": 10
+        }, 
+        {
+            "name": "Joyce", 
+            "degree": 5, 
+            "id": 11
+        }, 
+        {
+            "name": "Avis", 
+            "degree": 3, 
+            "id": 12
+        }, 
+        {
+            "name": "Javon", 
+            "degree": 0, 
+            "id": 13
+        }, 
+        {
+            "name": "Marcella", 
+            "degree": 0, 
+            "id": 14
+        }
+    ], 
+    "links": [
+        {
+            "source": 0, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 2, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 0, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 4, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 4, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 7, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 4, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 6, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 9, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 7, 
+            "target": 8, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 7, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 8, 
+            "target": 9, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 8, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 8, 
+            "target": 12, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

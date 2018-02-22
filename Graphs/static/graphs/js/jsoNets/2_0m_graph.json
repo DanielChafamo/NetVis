@@ -1,0 +1,94 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Daren(D.K.)", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Cheryl", 
+            "degree": 0, 
+            "id": 1
+        }, 
+        {
+            "name": "J.L.K.", 
+            "degree": 3, 
+            "id": 2
+        }, 
+        {
+            "name": "D.K.", 
+            "degree": 3, 
+            "id": 3
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 3, 
+            "id": 4
+        }, 
+        {
+            "name": "Mom", 
+            "degree": 3, 
+            "id": 5
+        }, 
+        {
+            "name": "Kelly", 
+            "degree": 0, 
+            "id": 6
+        }, 
+        {
+            "name": "Kiki", 
+            "degree": 0, 
+            "id": 7
+        }, 
+        {
+            "name": "Darrell Jr.", 
+            "degree": 0, 
+            "id": 8
+        }, 
+        {
+            "name": "Darrel(D.K.)", 
+            "degree": 0, 
+            "id": 9
+        }, 
+        {
+            "name": "Tamika", 
+            "degree": 0, 
+            "id": 10
+        }
+    ], 
+    "links": [
+        {
+            "source": 2, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 4, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 4, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 5, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

@@ -1,0 +1,104 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Casey", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Randi", 
+            "degree": 3, 
+            "id": 1
+        }, 
+        {
+            "name": "Pat", 
+            "degree": 0, 
+            "id": 2
+        }, 
+        {
+            "name": "Gina", 
+            "degree": 3, 
+            "id": 3
+        }, 
+        {
+            "name": "DC", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Nitiya", 
+            "degree": 0, 
+            "id": 5
+        }, 
+        {
+            "name": "Jim", 
+            "degree": 0, 
+            "id": 6
+        }, 
+        {
+            "name": "Randy", 
+            "degree": 3, 
+            "id": 7
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 3, 
+            "id": 8
+        }, 
+        {
+            "name": "Danny", 
+            "degree": 0, 
+            "id": 9
+        }, 
+        {
+            "name": "Alexis", 
+            "degree": 0, 
+            "id": 10
+        }, 
+        {
+            "name": "Rachel", 
+            "degree": 0, 
+            "id": 11
+        }, 
+        {
+            "name": "Pam", 
+            "degree": 0, 
+            "id": 12
+        }
+    ], 
+    "links": [
+        {
+            "source": 1, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 7, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 7, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 7, 
+            "target": 8, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

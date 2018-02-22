@@ -1,0 +1,64 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Tyler", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Christen", 
+            "degree": 0, 
+            "id": 1
+        }, 
+        {
+            "name": "Jake", 
+            "degree": 0, 
+            "id": 2
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 2, 
+            "id": 3
+        }, 
+        {
+            "name": "Andy", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Becca", 
+            "degree": 2, 
+            "id": 5
+        }, 
+        {
+            "name": "John", 
+            "degree": 2, 
+            "id": 6
+        }, 
+        {
+            "name": "Pepe", 
+            "degree": 0, 
+            "id": 7
+        }
+    ], 
+    "links": [
+        {
+            "source": 3, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 6, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 6, 
+            "weight": 1.0
+        }
+    ], 
+    "multigraph": false
+}

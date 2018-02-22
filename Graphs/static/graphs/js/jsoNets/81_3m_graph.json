@@ -1,0 +1,99 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Paulette", 
+            "degree": 4, 
+            "id": 0
+        }, 
+        {
+            "name": "Wilda", 
+            "degree": 0, 
+            "id": 1
+        }, 
+        {
+            "name": "Carla", 
+            "degree": 4, 
+            "id": 2
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 4, 
+            "id": 3
+        }, 
+        {
+            "name": "Tierra", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Cedric", 
+            "degree": 4, 
+            "id": 5
+        }, 
+        {
+            "name": "Terrell", 
+            "degree": 4, 
+            "id": 6
+        }, 
+        {
+            "name": "Mavorne", 
+            "degree": 0, 
+            "id": 7
+        }
+    ], 
+    "links": [
+        {
+            "source": 0, 
+            "target": 2, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 3, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 6, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

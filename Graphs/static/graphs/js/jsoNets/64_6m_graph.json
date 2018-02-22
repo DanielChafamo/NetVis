@@ -1,0 +1,269 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Wanda", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Reverend Kosh", 
+            "degree": 0, 
+            "id": 1
+        }, 
+        {
+            "name": "Frederick", 
+            "degree": 8, 
+            "id": 2
+        }, 
+        {
+            "name": "Sheryl", 
+            "degree": 0, 
+            "id": 3
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 8, 
+            "id": 4
+        }, 
+        {
+            "name": "Justin", 
+            "degree": 8, 
+            "id": 5
+        }, 
+        {
+            "name": "Amber", 
+            "degree": 0, 
+            "id": 6
+        }, 
+        {
+            "name": "Johnny", 
+            "degree": 0, 
+            "id": 7
+        }, 
+        {
+            "name": "Ann", 
+            "degree": 0, 
+            "id": 8
+        }, 
+        {
+            "name": "June", 
+            "degree": 8, 
+            "id": 9
+        }, 
+        {
+            "name": "Erin", 
+            "degree": 0, 
+            "id": 10
+        }, 
+        {
+            "name": "Wesley", 
+            "degree": 8, 
+            "id": 11
+        }, 
+        {
+            "name": "Charol", 
+            "degree": 8, 
+            "id": 12
+        }, 
+        {
+            "name": "Kristie", 
+            "degree": 8, 
+            "id": 13
+        }, 
+        {
+            "name": "Randall", 
+            "degree": 8, 
+            "id": 14
+        }, 
+        {
+            "name": "Keith", 
+            "degree": 8, 
+            "id": 15
+        }
+    ], 
+    "links": [
+        {
+            "source": 2, 
+            "target": 4, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 9, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 9, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 9, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 9, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 9, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 9, 
+            "target": 13, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 9, 
+            "target": 14, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 9, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 13, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 11, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 11, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 12, 
+            "target": 13, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 12, 
+            "target": 14, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 12, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 13, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 13, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 14, 
+            "target": 15, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

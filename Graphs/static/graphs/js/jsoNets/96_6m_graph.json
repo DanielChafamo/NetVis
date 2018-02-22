@@ -1,0 +1,269 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Sarah", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Jessie", 
+            "degree": 0, 
+            "id": 1
+        }, 
+        {
+            "name": "Janis", 
+            "degree": 0, 
+            "id": 2
+        }, 
+        {
+            "name": "Geraldine", 
+            "degree": 1, 
+            "id": 3
+        }, 
+        {
+            "name": "David", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Solomon", 
+            "degree": 6, 
+            "id": 5
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 10, 
+            "id": 6
+        }, 
+        {
+            "name": "Lisa", 
+            "degree": 0, 
+            "id": 7
+        }, 
+        {
+            "name": "Kurt", 
+            "degree": 0, 
+            "id": 8
+        }, 
+        {
+            "name": "Jerry-Louis", 
+            "degree": 0, 
+            "id": 9
+        }, 
+        {
+            "name": "Mary", 
+            "degree": 0, 
+            "id": 10
+        }, 
+        {
+            "name": "Rita", 
+            "degree": 7, 
+            "id": 11
+        }, 
+        {
+            "name": "Antonette", 
+            "degree": 7, 
+            "id": 12
+        }, 
+        {
+            "name": "Eloise", 
+            "degree": 0, 
+            "id": 13
+        }, 
+        {
+            "name": "Fontaine", 
+            "degree": 5, 
+            "id": 14
+        }, 
+        {
+            "name": "Evette", 
+            "degree": 8, 
+            "id": 15
+        }, 
+        {
+            "name": "Inell", 
+            "degree": 8, 
+            "id": 16
+        }, 
+        {
+            "name": "Vester", 
+            "degree": 4, 
+            "id": 17
+        }, 
+        {
+            "name": "Connie", 
+            "degree": 2, 
+            "id": 18
+        }, 
+        {
+            "name": "Robert", 
+            "degree": 6, 
+            "id": 19
+        }
+    ], 
+    "links": [
+        {
+            "source": 3, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 14, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 16, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 5, 
+            "target": 19, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 6, 
+            "target": 11, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 14, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 16, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 17, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 18, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 19, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 11, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 14, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 16, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 18, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 19, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 12, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 12, 
+            "target": 16, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 12, 
+            "target": 17, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 12, 
+            "target": 19, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 14, 
+            "target": 16, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 14, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 15, 
+            "target": 16, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 15, 
+            "target": 17, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 15, 
+            "target": 19, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 16, 
+            "target": 17, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 16, 
+            "target": 19, 
+            "weight": 1.0
+        }
+    ], 
+    "multigraph": false
+}

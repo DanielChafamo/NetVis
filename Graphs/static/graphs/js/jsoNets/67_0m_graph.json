@@ -1,0 +1,44 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Dorothy", 
+            "degree": 2, 
+            "id": 0
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 2, 
+            "id": 1
+        }, 
+        {
+            "name": "Tom", 
+            "degree": 0, 
+            "id": 2
+        }, 
+        {
+            "name": "Damon", 
+            "degree": 2, 
+            "id": 3
+        }
+    ], 
+    "links": [
+        {
+            "source": 0, 
+            "target": 1, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 0, 
+            "target": 3, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 3, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

@@ -1,0 +1,89 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Renee", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Denise", 
+            "degree": 3, 
+            "id": 1
+        }, 
+        {
+            "name": "Loran", 
+            "degree": 0, 
+            "id": 2
+        }, 
+        {
+            "name": "Kenneth", 
+            "degree": 0, 
+            "id": 3
+        }, 
+        {
+            "name": "Terri", 
+            "degree": 0, 
+            "id": 4
+        }, 
+        {
+            "name": "Nina", 
+            "degree": 3, 
+            "id": 5
+        }, 
+        {
+            "name": "Eddie", 
+            "degree": 0, 
+            "id": 6
+        }, 
+        {
+            "name": "Rosaline", 
+            "degree": 3, 
+            "id": 7
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 3, 
+            "id": 8
+        }, 
+        {
+            "name": "Litha", 
+            "degree": 0, 
+            "id": 9
+        }
+    ], 
+    "links": [
+        {
+            "source": 1, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 5, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 1, 
+            "target": 7, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 5, 
+            "target": 7, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 7, 
+            "target": 8, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}

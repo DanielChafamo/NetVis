@@ -1,0 +1,224 @@
+{
+    "directed": false, 
+    "graph": {}, 
+    "nodes": [
+        {
+            "name": "Judy Ray", 
+            "degree": 0, 
+            "id": 0
+        }, 
+        {
+            "name": "Susan", 
+            "degree": 0, 
+            "id": 1
+        }, 
+        {
+            "name": "Ego", 
+            "degree": 8, 
+            "id": 2
+        }, 
+        {
+            "name": "Melissa", 
+            "degree": 0, 
+            "id": 3
+        }, 
+        {
+            "name": "Linda", 
+            "degree": 2, 
+            "id": 4
+        }, 
+        {
+            "name": "Mary", 
+            "degree": 0, 
+            "id": 5
+        }, 
+        {
+            "name": "Rolando", 
+            "degree": 4, 
+            "id": 6
+        }, 
+        {
+            "name": "Patty", 
+            "degree": 0, 
+            "id": 7
+        }, 
+        {
+            "name": "Francis", 
+            "degree": 5, 
+            "id": 8
+        }, 
+        {
+            "name": "Bridget", 
+            "degree": 6, 
+            "id": 9
+        }, 
+        {
+            "name": "Diana", 
+            "degree": 6, 
+            "id": 10
+        }, 
+        {
+            "name": "Father Bill", 
+            "degree": 6, 
+            "id": 11
+        }, 
+        {
+            "name": "Jennifer", 
+            "degree": 8, 
+            "id": 12
+        }, 
+        {
+            "name": "Scott", 
+            "degree": 0, 
+            "id": 13
+        }, 
+        {
+            "name": "Joyce", 
+            "degree": 0, 
+            "id": 14
+        }, 
+        {
+            "name": "Beth", 
+            "degree": 7, 
+            "id": 15
+        }, 
+        {
+            "name": "Jesse", 
+            "degree": 0, 
+            "id": 16
+        }
+    ], 
+    "links": [
+        {
+            "source": 2, 
+            "target": 4, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 6, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 8, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 9, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 10, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 2, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 2, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 4, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 6, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 6, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 6, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 8, 
+            "target": 9, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 8, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 8, 
+            "target": 10, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 8, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 9, 
+            "target": 10, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 9, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 9, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 9, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 10, 
+            "target": 11, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 10, 
+            "target": 12, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 10, 
+            "target": 15, 
+            "weight": 2.0
+        }, 
+        {
+            "source": 11, 
+            "target": 12, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 11, 
+            "target": 15, 
+            "weight": 1.0
+        }, 
+        {
+            "source": 12, 
+            "target": 15, 
+            "weight": 2.0
+        }
+    ], 
+    "multigraph": false
+}
