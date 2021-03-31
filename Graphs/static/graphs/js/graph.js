@@ -31,7 +31,7 @@
 //       [_] thicker edges
 //       [_] video bar time progression
 //       
-//       [_] 27, 72, 142, 171, 66, 41
+//       [_] 27, 72, 142, 171, 66, 41, 94
 //       
 //       --causality from correlation--
 //       hill criterion for causality

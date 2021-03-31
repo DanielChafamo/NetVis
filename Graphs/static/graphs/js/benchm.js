@@ -16,7 +16,7 @@
 //       [*] general data vis page with links to individual entries, bubble charts, scatter plots, splines
 //       [_] new patient input and report page
 //       [_] May 10th, April 15
-//       [_] check id 33
+//       [_] check id 33, Network 94
 //       [*] red blue edge
 //       [*] node black white
 //       [*] dashed weak edges 

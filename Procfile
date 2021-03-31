@@ -1,0 +1,1 @@
+web: gunicorn NetVis.wsgi --log-file -
