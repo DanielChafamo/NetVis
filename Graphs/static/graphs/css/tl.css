@@ -1,0 +1,259 @@
+
+.experience {
+  margin-top: 0%;
+  width: 100%;
+  /* background-color: #3b8472;*/
+  height: auto;
+ 
+}
+.experience a {
+  text-decoration: none;
+}
+.experience ol,
+.experience ul {
+  list-style: none;
+}
+
+.cd-horizontal-timeline {
+  padding: 0 0;
+  opacity: 0;
+  margin: 0em auto;
+  -webkit-transition: opacity 0.2s;
+  -moz-transition: opacity 0.2s;
+  transition: opacity 0.2s;
+}
+
+.cd-horizontal-timeline::before { 
+  content: 'mobile';
+  display: none;
+}
+
+.cd-horizontal-timeline.loaded { 
+  opacity: 1;
+}
+
+.cd-horizontal-timeline .timeline {
+  position: relative;
+  height: 50px;
+  width: 100%; 
+  margin: 0 auto;
+}
+
+.cd-horizontal-timeline .events-wrapper {
+  position: relative;
+  height: 100%;
+  margin: 0 0px;
+  overflow: hidden;
+}
+
+.cd-horizontal-timeline .events-wrapper::after,
+.cd-horizontal-timeline .events-wrapper::before {
+  /* these are used to create a shadow effect at the sides of the timeline */
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  height: 100%;
+  width: 0px;
+}
+
+.cd-horizontal-timeline .events-wrapper::before {
+  left: 0;
+  background-image: -webkit-linear-gradient( left, #f8f8f8, rgba(248, 248, 248, 0));
+  background-image: linear-gradient(to right, #f8f8f8, rgba(248, 248, 248, 0));
+}
+
+.cd-horizontal-timeline .events-wrapper::after {
+  right: 0;
+  background-image: -webkit-linear-gradient( right, #f8f8f8, rgba(248, 248, 248, 0));
+  background-image: linear-gradient(to left, #f8f8f8, rgba(248, 248, 248, 0));
+}
+
+.cd-horizontal-timeline .events {
+  /* this is the grey line/timeline */
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 29px;
+  height: 2px;
+  /* width will be set using JavaScript */
+  background: #dfdfdf;
+  -webkit-transition: -webkit-transform 0.4s;
+  -moz-transition: -moz-transform 0.4s;
+  transition: transform 0.4s;
+}
+
+.cd-horizontal-timeline .filling-line {
+  /* this is used to create the green line filling the timeline */
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #008080;
+  -webkit-transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  -ms-transform: scaleX(0);
+  -o-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transform-origin: left center;
+  -moz-transform-origin: left center;
+  -ms-transform-origin: left center;
+  -o-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transition: -webkit-transform 0.3s;
+  -moz-transition: -moz-transform 0.3s;
+  transition: transform 0.3s;
+}
+
+.cd-horizontal-timeline .events a {
+  position: absolute;
+  bottom: 0;
+  z-index: 2;
+  text-align: center;
+  font-size: 1.3rem;
+  padding-bottom: 15px;
+  color: #383838;
+  /* fix bug on Safari - text flickering while timeline translates */
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.cd-horizontal-timeline .events a::after {
+  /* this is used to create the event spot */
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: auto;
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+  transform: translateX(-50%);
+  bottom: -5px;
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  border: 2px solid #dfdfdf;
+  background-color: #f8f8f8;
+  -webkit-transition: background-color 0.3s, border-color 0.3s;
+  -moz-transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.no-touch .cd-horizontal-timeline .events a:hover::after {
+  background-color: #008080;
+  border-color: #008080;
+}
+
+.cd-horizontal-timeline .events a.selected {
+  pointer-events: none;
+}
+
+.cd-horizontal-timeline .events a.selected::after {
+  background-color: #008080;
+  border-color: #008080;
+}
+
+.cd-horizontal-timeline .events a.older-event::after {
+  border-color: #008080;
+}
+
+@media only screen and (min-width: 1100px) {
+  .cd-horizontal-timeline {
+    margin: 0em auto;
+  }
+  .cd-horizontal-timeline::before {
+    /* never visible - this is used in jQuery to check the current MQ */
+    content: 'desktop';
+  }
+}
+
+@-webkit-keyframes cd-enter-right {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0%);
+  }
+}
+
+@-moz-keyframes cd-enter-right {
+  0% {
+    opacity: 0;
+    -moz-transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: translateX(0%);
+  }
+}
+
+@keyframes cd-enter-right {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(100%);
+    -moz-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    -o-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    -o-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+}
+
+@-webkit-keyframes cd-enter-left {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0%);
+  }
+}
+
+@-moz-keyframes cd-enter-left {
+  0% {
+    opacity: 0;
+    -moz-transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: translateX(0%);
+  }
+}
+
+@keyframes cd-enter-left {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-100%);
+    -moz-transform: translateX(-100%);
+    -ms-transform: translateX(-100%);
+    -o-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: translateX(0%);
+    -moz-transform: translateX(0%);
+    -ms-transform: translateX(0%);
+    -o-transform: translateX(0%);
+    transform: translateX(0%);
+  }
+}
+
+
+/*/ end about work experience /*/

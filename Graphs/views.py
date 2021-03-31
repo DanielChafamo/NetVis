@@ -11,9 +11,16 @@ STATIC_ROOT = os.path.join(REPOSITORY_ROOT, 'NetVis/Graphs/static/')
 
 # Create your views here.
 def Graph(request): 
+  fsource = os.path.join(STATIC_ROOT,'graphs/js/filter_feats.json')
+  context = {'feats': json.dumps(json.load(open(fsource)) ),
+             'initial': request.GET.get('initial', -1)} 
+  return render(request, 'graphs/graph.html', context=context)
+
+
+def Index(request): 
   fsource = os.path.join(STATIC_ROOT,'graphs/js/filter_feats.json') 
   context={'feats':json.dumps(json.load(open(fsource)) )}
-  return render(request, 'graphs/graph.html', context=context)
+  return render(request, 'graphs/index.html', context=context)
 
 
 def LoadJsoNet(request):
