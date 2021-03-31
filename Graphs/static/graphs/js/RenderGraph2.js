@@ -17,7 +17,7 @@ class RenderGraph {
         this.nodetime = 1700;
         this.monthtime = 200;
         this.alphaT = 0.1;
-        this.alphaR = 0.1;
+        thids.alphaR = 0.1;
 
         for (var i = this.graph.nodes.length - 1; i >= 0; i--) {
             if (this.graph.nodes[i]['name'] == "Ego") {
