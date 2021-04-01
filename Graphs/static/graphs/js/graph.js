@@ -56,14 +56,19 @@ $( "#target" ).submit(function( event ) {
         alert("Invalid Patient Id: " + $("#patientID").val());
         return;
     }
-    console.log(pidx)
-    console.log(idx)
     location.href = "/graphs/?initial=" + idx;
     event.preventDefault();
 });
 
-
-$("#videoplay").click(function(event) {    
+var first_play = true
+$("#videoplay").click(function(event) {
+    if (!first_play) {
+        select_pid(initial);
+        first_play = true;
+        return;
+    }
+    first_play = false;
+    console.log("playing")
     $("#lm0").css('-webkit-filter', 'blur(0px)');
     timeouts.push(
         setTimeout(function() { 
@@ -79,7 +84,8 @@ function select_pid(pid) {
             'pid': pid
         },
         dataType: 'json',
-        success: function (data) { 
+        success: function (data) {
+            initial = pid;
             clearPage();
             var graph0 = JSON.parse(data.g0),
                 graph0copy = JSON.parse(data.g0),
