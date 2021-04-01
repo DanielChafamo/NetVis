@@ -27,7 +27,15 @@
 
     <div class="container">
       <form id="target">
-        <div class="row"> 
+        <nav class="navbar">
+          <div class="container">
+            <ul class="navbar-list">
+              <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">Home</a></li>
+              <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">About</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div class="row">
           <div class="four columns" style="margin-top: 2%"></div>
           <div class="four columns" style="margin-top: 2%"> 
               <input type="search" class="u-full-width" placeholder="Patient ID" id="patientID" required>
@@ -68,12 +76,12 @@
           </div> 
           <button class="collapsible button-primary">Properties</button>
           <div class="content" style="margin-bottom: 100px"> 
-            <form>   
-              <h6><label class="switch">
-                <input type="checkbox" id="thersholdSlider">
-                <span class="slider round"></span>
-              </label>   Strong only</h6> 
-            </form>
+<!--            <form>   -->
+<!--              <h6><label class="switch">-->
+<!--                <input type="checkbox" id="thersholdSlider">-->
+<!--                <span class="slider round"></span>-->
+<!--              </label>   Strong only</h6> -->
+<!--            </form>-->
             Link Time
             <p class="split-para" style="margin-bottom: 0px">0 
               <span id="linktime" class="sliders"></span>
@@ -119,8 +127,9 @@
                 </svg>
                 Strong ties
               </div>
-            </div>  
-            <div class="label" id="netsize"> hjbh</div> 
+            </div>
+            <div class="label" id="piddisp"> </div>
+            <div class="label" id="netsize"> </div>
             <div class="mySlides fade"> 
               <div id="d3-0"></div>  
             </div> 

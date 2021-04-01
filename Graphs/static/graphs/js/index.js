@@ -11,8 +11,8 @@ for (var i = 0; i < feats['study_id'].length; i++) {
 } 
 
 
-$(".pref").click(function() { 
-    select_pid($(this).attr('value') );
+$(".pref").click(function() {
+    location.href = "/graphs/?initial="+$(this).attr('value');
 });
 
 

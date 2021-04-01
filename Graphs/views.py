@@ -24,6 +24,10 @@ def Index(request):
   return render(request, 'graphs/index.html', context=context)
 
 
+def About(request):
+  return render(request, 'graphs/about.html')
+
+
 def LoadJsoNet(request):
   pid = request.GET.get('pid', None)
   source = os.path.join(settings.STATIC_ROOT,'graphs/js/jsoNets/{}_'.format(pid))
