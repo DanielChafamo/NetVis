@@ -49,6 +49,20 @@ $(document).ready(function() {
     select_pid(initial); 
 });
 
+$( "#target" ).submit(function( event ) {
+    let pidx = parseInt($("#patientID").val());
+    let idx = feats['study_id'].indexOf(pidx) +1;
+    if (idx == 0) {
+        alert("Invalid Patient Id: " + $("#patientID").val());
+        return;
+    }
+    console.log(pidx)
+    console.log(idx)
+    location.href = "/graphs/?initial=" + idx;
+    event.preventDefault();
+});
+
+
 $("#videoplay").click(function(event) {    
     $("#lm0").css('-webkit-filter', 'blur(0px)');
     timeouts.push(

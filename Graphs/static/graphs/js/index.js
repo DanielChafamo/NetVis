@@ -15,6 +15,18 @@ $(".pref").click(function() {
     location.href = "/graphs/?initial="+$(this).attr('value');
 });
 
+$( "#target" ).submit(function( event ) {
+    let pidx = parseInt($("#patientID").val());
+    let idx = feats['study_id'].indexOf(pidx) +1;
+    if (idx == 0) {
+        alert("Invalid Patient Id: " + $("#patientID").val());
+        return;
+    }
+    console.log(pidx)
+    console.log(idx)
+    location.href = "/graphs/?initial=" + idx;
+    event.preventDefault();
+});
 
 var range0 = document.getElementById('range0');
 noUiSlider.create(range0, {start: [4,15], connect: true, 
