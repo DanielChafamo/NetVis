@@ -27,8 +27,8 @@
 //       [*] time line + unnamed skeleton network that lights up
 //       [*] smoother transition
 //       [*] continuous updates
-//       [_] week and strong relationship legend
-//       [_] thicker edges
+//       [*] week and strong relationship legend
+//       [*] thicker edges
 //       [_] video bar time progression
 //       
 //       [_] 27, 72, 142, 171, 66, 41, 94

@@ -88,6 +88,40 @@
 
           </div>
           <br>
+          <form id="index_graph">
+            <div class="row">
+              <div class="one columns">
+                <label for="featureX">X:</label>
+              </div>
+              <div class="four columns noleftmargine">
+                <select class="u-full-width" id="featureX">
+                  <option value="PhyFunc_TScore">Physical Function TScore</option>
+                  <option value="SocialSat_TScore">Social Satisfaction TScore</option>
+                  <option value="smoking_prop">Smokers in Network</option>
+                  <option value="network.size">Network Size</option>
+                  <option value="constraint">Network Constraint</option>
+                  <option value="density">Network Density</option>
+                </select>
+              </div>
+              <div class="one columns">
+                <label class="u-full-width" for="featureY">Y:</label>
+              </div>
+              <div class="four columns noleftmargine">
+                <select class="u-full-width" id="featureY">
+                  <option value="SocialSat_TScore">Social Satisfaction TScore</option>
+                  <option value="PhyFunc_TScore">Physical Function TScore</option>
+                  <option value="smoking_prop">Smokers in Network</option>
+                  <option value="network.size">Network Size</option>
+                  <option value="constraint">Network Constraint</option>
+                  <option value="density">Network Density</option>
+                </select>
+              </div>
+              <div class="two columns">
+                <input class="button-primary" type="submit" value="Graph">
+              </div>
+            </div>
+
+          </form>
 
         </div>
       </div>
