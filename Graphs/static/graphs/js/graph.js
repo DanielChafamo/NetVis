@@ -68,7 +68,6 @@ $("#videoplay").click(function(event) {
         return;
     }
     first_play = false;
-    console.log("playing")
     $("#lm0").css('-webkit-filter', 'blur(0px)');
     timeouts.push(
         setTimeout(function() { 

@@ -11,25 +11,32 @@ import os
 
 
 # Create your views here.
-def Graph(request): 
-  fsource = os.path.join(settings.STATIC_ROOT,'graphs/js/filter_feats.json')
-  context = {'feats': json.dumps(json.load(open(fsource)) ),
-             'initial': request.GET.get('initial', -1)} 
-  return render(request, 'graphs/graph.html', context=context)
+def Graph(request):
+    fsource = os.path.join(settings.STATIC_ROOT, 'graphs/js/filter_feats.json')
+    context = {'feats': json.dumps(json.load(open(fsource))),
+               'initial': request.GET.get('initial', -1)}
+    return render(request, 'graphs/graph.html', context=context)
 
 
-def Index(request): 
-  fsource = os.path.join(settings.STATIC_ROOT,'graphs/js/filter_feats.json')
-  context={'feats':json.dumps(json.load(open(fsource)) )}
-  return render(request, 'graphs/index.html', context=context)
+def Index(request):
+    fsource = os.path.join(settings.STATIC_ROOT, 'graphs/js/filter_feats.json')
+    context = {'feats': json.dumps(json.load(open(fsource)))}
+    return render(request, 'graphs/index.html', context=context)
+
+
+def Grid(request):
+    fsource = os.path.join(settings.STATIC_ROOT, 'graphs/js/filter_feats.json')
+    feats = json.load(open(fsource))
+    context = {'feats': json.dumps(feats), 'study_id': [int(s_id) for s_id in feats["study_id"]]}
+    return render(request, 'graphs/grid.html', context=context)
 
 
 def About(request):
-  return render(request, 'graphs/about.html')
+    return render(request, 'graphs/about.html')
 
 
 def LoadJsoNet(request):
-  pid = request.GET.get('pid', None)
-  source = os.path.join(settings.STATIC_ROOT,'graphs/js/jsoNets/{}_'.format(pid))
-  context = {'g{}'.format(i): json.dumps(json.load(open(source+'{}m_graph.json'.format(i)))) for i in [0,3,6]}
-  return JsonResponse(context)
+    pid = request.GET.get('pid', None)
+    source = os.path.join(settings.STATIC_ROOT, 'graphs/js/jsoNets/{}_'.format(pid))
+    context = {'g{}'.format(i): json.dumps(json.load(open(source + '{}m_graph.json'.format(i)))) for i in [0, 3, 6]}
+    return JsonResponse(context)

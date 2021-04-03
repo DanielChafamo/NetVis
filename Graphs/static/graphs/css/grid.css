@@ -1,0 +1,25 @@
+.grid {
+  border: 1px solid black;
+  height: 300px;
+  margin: 10px;
+}
+
+.grid_row {
+  width: 1100px;
+}
+
+#pid {
+  margin-top: 1%;
+  text-align: center;
+  height: 11px;
+  padding-top: 10px;
+  color: #555;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .1rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  background-color: transparent
+}

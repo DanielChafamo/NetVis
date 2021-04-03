@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^$', views.Index, name='Index'),
     url(r'^about/$', views.About, name='About'),
     url(r'^graphs/$', views.Graph, name='Graph'),
+    url(r'^grid/$', views.Grid, name='Grid'),
     url(r'^jsonet/$', views.LoadJsoNet, name='LoadJsoNet'),
 ] 

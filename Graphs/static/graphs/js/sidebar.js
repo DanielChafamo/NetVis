@@ -51,13 +51,13 @@ noUiSlider.create(range4, {start: [20,70], margin: 1, connect: true,
 
 // Properties sliders
 var linktime = document.getElementById('linktime');
-noUiSlider.create(linktime, {start: 1000, connect: [true, false],
+noUiSlider.create(linktime, {start: 2500, connect: [true, false],
     range: { 'min': 0, 'max': 5000 } });
 var nodetime = document.getElementById('nodetime');
-noUiSlider.create(nodetime, {start: 1700, connect: [true, false],
+noUiSlider.create(nodetime, {start: 10, connect: [true, false],
     range: { 'min': 0, 'max': 5000 } });
 var monthtime = document.getElementById('monthtime');
-noUiSlider.create(monthtime, {start: 1700, margin: 1, connect: [true, false],
+noUiSlider.create(monthtime, {start: 5000, margin: 1, connect: [true, false],
     range: { 'min': 18, 'max': 5000 } });
 var alphaT = document.getElementById('alphaT');
 noUiSlider.create(alphaT, {start: 0.1, connect: [true, false],  
