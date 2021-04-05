@@ -1,22 +1,34 @@
 
-var graph = null;
-
-var timeouts = [];
+var timeouts = {};
+var graphs = {};
+var clicked = {};
 
 $(document).ready(function() {
-    for (var i=0; i<feats['study_id'].length; i++)
+    for (let i = 1; i <= feats['study_id'].length; i++) {
         select_pid(i);
+        grid_hover(i)
+    }
 });
 
-
-
-$("#videoplay").click(function(event) {
-    timeouts.push(
-        setTimeout(function() {
-            graph.changenodes("graphRec3", '3');
-        }, 2000)
-    );
-});
+function grid_hover(i) {
+    let grid = document.getElementById("grid_inner_" + i);
+    grid.addEventListener("click", function() {
+        if (i in clicked && clicked[i]) {
+            this.style.border = "1px solid black";
+            clicked[i] = false;
+            select_pid(i);
+        }
+        else {
+            this.style.border = "2px solid black";
+            clicked[i] = true;
+            timeouts[i].push(
+                setTimeout(function() {
+                    graphs[i].changenodes("graphRec3", '3');
+                }, 200)
+            );
+        }
+    });
+}
 
 function select_pid(pid) {
     $.ajax({
@@ -27,7 +39,6 @@ function select_pid(pid) {
         dataType: 'json',
         success: function (data) {
             initial = pid;
-            clearPage();
             var graph0 = JSON.parse(data.g0),
                 graph0copy = JSON.parse(data.g0),
                 graph3 = JSON.parse(data.g3),
@@ -35,22 +46,25 @@ function select_pid(pid) {
                 graph6 = JSON.parse(data.g6),
                 graph6copy = JSON.parse(data.g6);
 
-            graph = new RenderGraph(graph0, graph3, graph6, "#grid_" + pid);
-            $("#piddisp").html("Patient " + feats['study_id'][pid-1])
-
+            clearGrid(pid);
+            let graph = new RenderGraphGrid(graph0, graph3, graph6, pid);
+            $("#piddisp").html("Patient " + feats['study_id'][pid-1]);
+            graphs[pid] = graph;
+            document.getElementById("grid_" + pid + "_month").innerHTML =  "Month 0";
         }
     });
 }
 
-function clearPage() {
-    for (var i=0; i<timeouts.length; i++)
-        clearTimeout(timeouts[i]);
-    $("#d3-0").empty();
+function clearGrid(pid) {
+    let svgs = document.getElementById("grid_" + pid).getElementsByTagName("svg");
+    for (let i = 0; i < svgs.length; i++)
+        svgs[i].remove();
+    if (pid in timeouts) {
+        for (let i = 0; i < timeouts[pid].length; i++)
+            clearTimeout(timeouts[pid][i]);
+    }
+    timeouts[pid] = [];
 }
-
-
-
-
 
 //
 //
@@ -62,20 +76,25 @@ var colors = {}
     colors[-1] = 'blue';
     colors[-2] = 'red';
 
-class RenderGraph {
-    constructor(graph, graph3, graph6, div_id) {
+class RenderGraphGrid {
+    constructor(graph, graph3, graph6, pid) {
         this.graph = graph;
+        this.div_id = "#grid_" + pid;
+        this.pid = pid
         this.changing = true;
         this.egodegree = -1;
-        this.width = 300;
-        this.height = 300;
+        this.width = 160;
+        this.height = 160;
+        this.rmargin = 10;
+        this.lmargin = 0;
         this.linktime = 2500;
         this.nodetime = 10;
-        this.monthtime = 5000;
-        this.alphaT = 0.2;
-        this.alphaR = 0.2;
-        this.linkDistance = 50;
-        this.nodeSize = 0.05;
+        this.monthtime = 4000;
+        this.alphaT = 0.1;
+        this.alphaR = 0.8;
+        this.alphaR_change = 0.2;
+        this.distanceForce = -200;
+        this.linkDistance = 0;
 
         for (var i = this.graph.nodes.length - 1; i >= 0; i--) {
             if (this.graph.nodes[i]['name'] == "Ego") {
@@ -85,13 +104,13 @@ class RenderGraph {
             this.graph.nodes[i]['changing'] = false;
         }
 
-        this.svg = d3.select(div_id).append("svg")
+        this.svg = d3.select(this.div_id).append("svg")
             .attr("id", 'svgmain')
             .attr("width", this.width)
             .attr("height", this.height);
 
         var g = this.svg.append("g")
-            // .attr("transform", "translate(" + this.width / 2 + "," + this.height / 2 + ")");
+             .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
         this.link = g.append("g")
             .attr("stroke", "#fff")
@@ -108,17 +127,17 @@ class RenderGraph {
             .attr("stroke-width", 0.25)
             .selectAll("text").data(this.graph.nodes)
             .enter().append("text")
-            .attr("dx", 15)
-            .attr("dy", ".35em")
-            .text(function(d) { if (d.name != "Patient") return d.name[0]; return "" });
+            .attr("dx", 3)
+            .attr("dy", ".05em")
+            .text(function(d) { if (d.name != "Patient") return ""; return "" });
 
         this.simulation = d3.forceSimulation(this.graph.nodes)
-            .force("charge", d3.forceManyBody().strength(-1000))
+            .force("charge", d3.forceManyBody().strength(this.distanceForce))
             .force("link", d3.forceLink(this.graph.links).distance(this.linkDistance))
             .force("x", d3.forceX(this.width/2))
             .force("y", d3.forceY(this.height/2))
             .alphaTarget(this.alphaT)
-            .alphaDecay(0.005)
+            .alphaDecay(0.05)
             .on("tick", function () {this.ticked();}.bind(this));
 
 
@@ -127,11 +146,18 @@ class RenderGraph {
         this.graphRec3 = JSON.parse(JSON.stringify(graph3));
         this.graphRec6 = JSON.parse(JSON.stringify(graph6));
 
-        this.restart();
+        this.restart(this.alphaR, true);
 
     }
 
-    restart() {
+    restart(alphaR, initial) {
+        if (initial) {
+            for (let n of this.graph.nodes) {
+                n.x = this.width / 2 + 20*Math.random();
+                n.y = this.height / 2 + 20*Math.random();
+            }
+        }
+
         // Handle Node changes and attributes
         this.node = this.node
             .data(this.graph.nodes, function(d) {
@@ -146,7 +172,7 @@ class RenderGraph {
             .call(function(node) {
                 node.transition()
                     .attr("r",  function (d) {
-                        return 0.7 + 0.5*d.degree; }); })
+                        return 0.4 + 0.3*d.degree; }); })
             .call(d3.drag()
                 .on("start", this.dragstarted)
                 .on("drag", this.dragged)
@@ -183,7 +209,7 @@ class RenderGraph {
         // Update and restart the simulation.
         this.simulation.nodes(this.graph.nodes);
         this.simulation.force("link").links(this.graph.links);
-        this.simulation.alpha(this.alphaR).restart();
+        this.simulation.alpha(alphaR).restart();
     }
 
     ticked() {
@@ -206,7 +232,7 @@ class RenderGraph {
         }
 
         this.svg.selectAll("circle")
-            .attr("r", function (d) { return 0.7 + 0.5*d.degree})
+            .attr("r", function (d) { return 0.4 + 0.3*d.degree})
             // .style("fill", function (d) {
             //     if (d.changing) return 'red';
             //     else return colors[1+(d.name != "Patient")];})
@@ -262,7 +288,7 @@ class RenderGraph {
                 if (add[0].split('_')[0] == from) add_now.push(add.splice(0,1)[0]);
                 else break;
             }
-            timeouts.push(setTimeout(function() {
+            timeouts[this.pid].push(setTimeout(function() {
                 for (var i = remove_now.length - 1; i >= 0; i--) {
                     in_links = this.graph.links.map(this.get_id);
                     this.graph.links.splice(in_links.indexOf(remove_now[i]), 1);
@@ -276,16 +302,16 @@ class RenderGraph {
                     this.graph.nodes[i]['changing'] = false;
                 this.graph.nodes[parseInt(from)]['changing'] = true;
 
-                this.restart();
+                this.restart(this.alphaR_change, false);
             }.bind(this), i*this.nodetime));
             i ++;
         }
 
-        timeouts.push(
+        timeouts[this.pid].push(
             setTimeout(function() {
-                document.getElementById("netsize").innerHTML = "Network size = " + (this.egodegree + 1);
+                document.getElementById(this.div_id.substring(1, this.div_id.length) + "_month").innerHTML = "Month " + month;
                 $("#lm"+month).css('-webkit-filter', 'blur(0px)');
-                timeouts.push(
+                timeouts[this.pid].push(
                     setTimeout(function() {
                         if (this.changing) {
                             this.changing = false;
@@ -311,7 +337,7 @@ class RenderGraph {
             if (this.graphRec.links[i].weight > thresh)
                 this.graph.links.push(this.graphRec.links[i]);
         }
-        this.restart();
+        this.restart(this.alphaR, false);
     }
 
     dragstarted(d) {
@@ -333,7 +359,7 @@ class RenderGraph {
     getPos(d, axis) {
         let bound = (axis == "x") ? this.width : this.height
         if (d.name == "Patient") d[axis] = bound / 2;
-        return d[axis] = Math.max(20, Math.min(bound-40, d[axis]));
+        return d[axis] = Math.max(this.lmargin, Math.min(bound - this.rmargin, d[axis]));
     }
 
 }

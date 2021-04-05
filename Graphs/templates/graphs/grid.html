@@ -37,16 +37,24 @@
             </div>
         </nav>
     </form>
+
     <div class="row grid_row">
         {% for s_id in study_id %}
-            {% if forloop.counter0|divisibleby:3 %}
+        {% if forloop.counter0|divisibleby:6 %}
+    </div>
+    <div class="row grid_row">
+        {% endif %}
+       <!-- <a href="#" style="display:block">  href="{% url 'Graph' %}?initial={{forloop.counter}}"-->
+            <div class="two columns grid" id="grid_inner_{{ forloop.counter }}" >
+                <div class="grid_label">
+                    <p class="grid_label">Patient {{ s_id }}</p>
                 </div>
-                <div class="row grid_row">
-            {% endif %}
-            <div class="four columns grid">
-                <div id="pid"> <a href="{% url 'Graph' %}?initial={{forloop.counter}}">Patient {{ s_id }}</a></div>
                 <div id="grid_{{ forloop.counter }}"></div>
+                <div class="grid_month">
+                    <p class="grid_month" id="grid_{{ forloop.counter }}_month"> Month 0</p>
+                </div>
             </div>
+        <!--</a>-->
         {% endfor %}
     </div>
 </div>
