@@ -435,7 +435,7 @@ video { border-radius: 6px; }
 }
 
 #lm-progress {
-  background-color: mediumspringgreen;
+  background-color: gray;
   height: 2px;
   width: 0%;
   transition: all linear 6s;

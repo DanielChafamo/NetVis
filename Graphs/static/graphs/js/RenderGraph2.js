@@ -1,7 +1,7 @@
 var colors = {}
     colors[1] ='black';
     colors[2] ='white';
-    colors[-1] = 'blue';
+    colors[-1] = 'cornflowerblue';
     colors[-2] = 'red';
 
 class RenderGraph {
