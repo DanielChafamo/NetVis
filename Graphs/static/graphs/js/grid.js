@@ -1,11 +1,11 @@
 
-var timeouts = {};
+var grid_timeouts = {};
 var graphs = {};
 var clicked = {};
 
 $(document).ready(function() {
     for (let i = 1; i <= feats['study_id'].length; i++) {
-        select_pid(i);
+        grid_select_pid(i);
         grid_hover(i)
     }
 });
@@ -16,21 +16,26 @@ function grid_hover(i) {
         if (i in clicked && clicked[i]) {
             this.style.border = "1px solid black";
             clicked[i] = false;
-            select_pid(i);
+            grid_select_pid(i);
         }
         else {
             this.style.border = "2px solid black";
             clicked[i] = true;
-            timeouts[i].push(
+            grid_timeouts[i].push(
                 setTimeout(function() {
                     graphs[i].changenodes("graphRec3", '3');
                 }, 200)
             );
         }
     });
+
+    grid.addEventListener("dblclick", function() {
+        select_pid(i);
+        modal.style.display = "block";
+    });
 }
 
-function select_pid(pid) {
+function grid_select_pid(pid) {
     $.ajax({
         url: '/jsonet/',
         data: {
@@ -48,7 +53,6 @@ function select_pid(pid) {
 
             clearGrid(pid);
             let graph = new RenderGraphGrid(graph0, graph3, graph6, pid);
-            $("#piddisp").html("Patient " + feats['study_id'][pid-1]);
             graphs[pid] = graph;
             document.getElementById("grid_" + pid + "_month").innerHTML =  "Month 0";
         }
@@ -59,11 +63,11 @@ function clearGrid(pid) {
     let svgs = document.getElementById("grid_" + pid).getElementsByTagName("svg");
     for (let i = 0; i < svgs.length; i++)
         svgs[i].remove();
-    if (pid in timeouts) {
-        for (let i = 0; i < timeouts[pid].length; i++)
-            clearTimeout(timeouts[pid][i]);
+    if (pid in grid_timeouts) {
+        for (let i = 0; i < grid_timeouts[pid].length; i++)
+            clearTimeout(grid_timeouts[pid][i]);
     }
-    timeouts[pid] = [];
+    grid_timeouts[pid] = [];
 }
 
 //
@@ -91,7 +95,7 @@ class RenderGraphGrid {
         this.nodetime = 10;
         this.monthtime = 4000;
         this.alphaT = 0.1;
-        this.alphaR = 0.8;
+        this.alphaR = 0.4;
         this.alphaR_change = 0.2;
         this.distanceForce = -200;
         this.linkDistance = 0;
@@ -288,7 +292,7 @@ class RenderGraphGrid {
                 if (add[0].split('_')[0] == from) add_now.push(add.splice(0,1)[0]);
                 else break;
             }
-            timeouts[this.pid].push(setTimeout(function() {
+            grid_timeouts[this.pid].push(setTimeout(function() {
                 for (var i = remove_now.length - 1; i >= 0; i--) {
                     in_links = this.graph.links.map(this.get_id);
                     this.graph.links.splice(in_links.indexOf(remove_now[i]), 1);
@@ -307,11 +311,11 @@ class RenderGraphGrid {
             i ++;
         }
 
-        timeouts[this.pid].push(
+        grid_timeouts[this.pid].push(
             setTimeout(function() {
                 document.getElementById(this.div_id.substring(1, this.div_id.length) + "_month").innerHTML = "Month " + month;
                 $("#lm"+month).css('-webkit-filter', 'blur(0px)');
-                timeouts[this.pid].push(
+                grid_timeouts[this.pid].push(
                     setTimeout(function() {
                         if (this.changing) {
                             this.changing = false;
@@ -362,4 +366,18 @@ class RenderGraphGrid {
         return d[axis] = Math.max(this.lmargin, Math.min(bound - this.rmargin, d[axis]));
     }
 
+}
+
+
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }

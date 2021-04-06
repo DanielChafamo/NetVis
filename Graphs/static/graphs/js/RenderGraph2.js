@@ -2,9 +2,7 @@ var colors = {}
     colors[1] ='black';
     colors[2] ='white';
     colors[-1] = 'blue';
-    // '#1f77b4';
     colors[-2] = 'red';
-    // '#d62728';  
 
 class RenderGraph {
     constructor(graph, graph3, graph6, div_id) { 
@@ -13,11 +11,12 @@ class RenderGraph {
         this.egodegree = -1;
         this.width = 850;
         this.height = 500;
-        this.linktime = 2500;
+        this.linktime = 1000;
         this.nodetime = 10;
-        this.monthtime = 5000;
-        this.alphaT = 0.1;
-        this.alphaR = 0.1;
+        this.monthtime = 4000;
+        this.alphaT = 0.2;
+        this.alphaR = 0.4;
+        this.alphaR_change = 0.2;
 
         for (var i = this.graph.nodes.length - 1; i >= 0; i--) {
             if (this.graph.nodes[i]['name'] == "Ego") {
@@ -60,7 +59,7 @@ class RenderGraph {
             .force("x", d3.forceX(this.width/2))
             .force("y", d3.forceY(this.height/2))
             .alphaTarget(this.alphaT)
-            .alphaDecay(0.005)
+            .alphaDecay(0.03)
             .on("tick", function () {this.ticked();}.bind(this)); 
 
 
@@ -69,11 +68,17 @@ class RenderGraph {
         this.graphRec3 = JSON.parse(JSON.stringify(graph3)); 
         this.graphRec6 = JSON.parse(JSON.stringify(graph6));  
 
-        this.restart();
+        this.restart(this.alphaR, true);
 
     } 
 
-    restart() {  
+    restart(alphaR, initial) {
+        if (initial) {
+            for (let n of this.graph.nodes) {
+                n.x = this.width / 2 + 50*Math.random();
+                n.y = this.height / 2 + 50*Math.random();
+            }
+        }
         // Handle Node changes and attributes
         this.node = this.node
             .data(this.graph.nodes, function(d) { 
@@ -218,7 +223,7 @@ class RenderGraph {
                     this.graph.nodes[i]['changing'] = false;
                 this.graph.nodes[parseInt(from)]['changing'] = true; 
 
-                this.restart();
+                this.restart(this.alphaR_change, false);
             }.bind(this), i*this.nodetime));
             i ++; 
         }
@@ -227,6 +232,7 @@ class RenderGraph {
             setTimeout(function() { 
                 document.getElementById("netsize").innerHTML = "Network size = " + (this.egodegree + 1); 
                 $("#lm"+month).css('-webkit-filter', 'blur(0px)');
+                fade_progress('100%');
                 timeouts.push(
                     setTimeout(function() {  
                         if (this.changing) {
@@ -253,7 +259,7 @@ class RenderGraph {
             if (this.graphRec.links[i].weight > thresh) 
                 this.graph.links.push(this.graphRec.links[i]);
         }
-        this.restart();
+        this.restart(this.alphaR_change, false);
     }
 
     dragstarted(d) {
@@ -273,7 +279,8 @@ class RenderGraph {
         d.fy = null;
     } 
     getPos(d, axis) {  
-        let bound = (axis == "x") ? this.width : this.height  
+        let bound = (axis == "x") ? this.width : this.height
+        if (d.name == "Patient") d[axis] = bound / 2;
         return d[axis] = Math.max(20, Math.min(bound-20, d[axis]));
     }
   

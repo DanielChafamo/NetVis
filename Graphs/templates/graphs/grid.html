@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'graphs/css/normalize.css' %}">
     <link rel="stylesheet" href="{% static 'graphs/css/skeleton.css' %}">
     <link rel="stylesheet" href="{% static 'graphs/css/grid.css' %}">
+    <link rel="stylesheet" href="{% static 'graphs/css/graph.css' %}">
     <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="{% static 'graphs/css/nouislider.css' %}">
     <link rel="stylesheet" href="{% static 'graphs/css/tl.css' %}">
@@ -57,6 +58,52 @@
         <!--</a>-->
         {% endfor %}
     </div>
+    <div class="modal" id="myModal">
+        <div class="maincontainer modal-content">
+            <div class="legend">
+                <div class='legendhead legendtext'>Legend<br></div>
+                <div class='legendtext'>
+                    <svg height="10" width="28">
+                        <line x1="0" y1="5" x2="28" y2="5" id="wties"/>
+                    </svg>
+                    Weak ties
+                </div>
+                <div class='legendtext'>
+                    <svg height="10" width="28">
+                        <line x1="0" y1="5" x2="28" y2="5" id="sties"/>
+                    </svg>
+                    Strong ties
+                </div>
+            </div>
+            <span class="close">&times;</span>
+            <div class="pidlabel" id="piddisp"></div>
+            <div class="label" id="netsize"></div>
+            <div class="mySlides fade">
+                <div id="d3-0"></div>
+            </div>
+            <div id="lm-progress"></div>
+            <div class="lamndmark">
+                <div class="landmarks" id="lm0"></div>
+                <div class="spacer"></div>
+                <div class="landmarks" id="lm3"></div>
+                <div class="spacer"></div>
+                <div class="landmarks" id="lm6"></div>
+                <br>
+                <div class="labels label" id="label0">Enrollment</div>
+                <div class="spacer"></div>
+                <div class="labels label" id="label3">3 Month</div>
+                <div class="spacer"></div>
+                <div class="labels label" id="label6">6 Month</div>
+            </div>
+            <div style='border-top:1px solid black'>
+                <button id="videoplay" type="submit" class="button vidplay">
+                    <i class="fa fa-play" id="play-replay"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <!-- STYLES AND SCRIPTS -->
@@ -69,6 +116,9 @@
 <script type="text/javascript" src="{% static 'graphs/js/d3.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/nouislider.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/grid.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/RenderGraph2.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/StaticGraph2.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/graph.js' %}"></script>
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>

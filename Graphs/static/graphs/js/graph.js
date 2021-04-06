@@ -64,11 +64,14 @@ var first_play = true
 $("#videoplay").click(function(event) {
     if (!first_play) {
         select_pid(initial);
+        $("#play-replay").removeClass("fa-repeat").addClass("fa-play");
         first_play = true;
-        return;
+    } else {
+        first_play = false;
+        $("#play-replay").removeClass("fa-play").addClass("fa-repeat");
     }
-    first_play = false;
     $("#lm0").css('-webkit-filter', 'blur(0px)');
+    fade_progress('50%');
     timeouts.push(
         setTimeout(function() { 
             graph.changenodes("graphRec3", '3');  
@@ -115,6 +118,19 @@ function clearPage() {
     $("#lm0").css('-webkit-filter', 'blur(1.5px)');
     $("#lm3").css('-webkit-filter', 'blur(1.5px)');
     $("#lm6").css('-webkit-filter', 'blur(1.5px)');
+    fade_progress('0%');
+    first_play = true;
+    $("#play-replay").removeClass("fa-repeat").addClass("fa-play");
 }   
 
 
+function fade_progress(percent) {
+    if (percent == '0%') {
+        $("#lm-progress").css('transition', 'none linear 0s');
+        $("#lm-progress").css('width', percent);
+        return;
+    };
+    $("#lm-progress").css('transition', 'all linear 6s');
+    $("#lm-progress").css('width', percent);
+
+}
