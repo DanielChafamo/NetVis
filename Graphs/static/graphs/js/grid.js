@@ -56,7 +56,7 @@ function play_grid(i) {
 function grid_hover(i) {
     let grid = document.getElementById("grid_inner_" + i);
     grid.addEventListener("click", function() {
-        select_pid(i);
+        select_pid(i, true);
         modal.style.display = "block";
     });
 }

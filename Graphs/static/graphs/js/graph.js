@@ -46,7 +46,7 @@ var timeouts = [];
  
 $(document).ready(function() {   
     if (initial == -1) initial = 5;
-    select_pid(initial); 
+    select_pid(initial, false);
 });
 
 $( "#target" ).submit(function( event ) {
@@ -62,8 +62,12 @@ $( "#target" ).submit(function( event ) {
 
 var first_play = true
 $("#videoplay").click(function(event) {
+   play_video();
+});
+
+function play_video() {
     if (!first_play) {
-        select_pid(initial);
+        select_pid(initial, false);
         $("#play-replay").removeClass("fa-repeat").addClass("fa-play");
         first_play = true;
     } else {
@@ -73,13 +77,14 @@ $("#videoplay").click(function(event) {
     $("#lm0").css('-webkit-filter', 'blur(0px)');
     fade_progress('50%');
     timeouts.push(
-        setTimeout(function() { 
-            graph.changenodes("graphRec3", '3');  
+        setTimeout(function() {
+            graph.changenodes("graphRec3", '3');
         }, 2000)
-    ); 
-});
+    );
+}
 
-function select_pid(pid) {
+// TODO: minimize calls
+function select_pid(pid, play) {
     $.ajax({
         url: '/jsonet/',
         data: {
@@ -104,6 +109,8 @@ function select_pid(pid) {
             let lm3 = new StaticGraph(graph3copy, "#lm3"); 
             let lm6 = new StaticGraph(graph6copy, "#lm6"); 
 
+            if (play)
+                setTimeout(play_video, 1000)
         }
     });
 }
