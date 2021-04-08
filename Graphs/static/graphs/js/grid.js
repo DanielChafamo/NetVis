@@ -1,62 +1,95 @@
-
+var num_patients = feats['study_id'].length
+var grid_cols = 6;
 var grid_timeouts = {};
+var clicker_timeouts = {};
 var graphs = {};
 var clicked = {};
+var full_play_time = 15000;
+var all_data = {}
+var month_zeros = {}
 
 $(document).ready(function() {
-    for (let i = 1; i <= feats['study_id'].length; i++) {
-        grid_select_pid(i);
+    for (let i = 1; i <= num_patients; i++) {
+        fetch_data_draw(i);
         grid_hover(i)
     }
+    setTimeout(clicker, full_play_time/2);
+
 });
+
+function clicker() {
+    for (let i = 0; i < num_patients/grid_cols; i++) {
+        let rand = i * grid_cols + getRandomIntInclusive(1, grid_cols);
+        rand = Math.min(num_patients, rand);
+        let rand_delay = getRandomIntInclusive(100, 1000);
+        setTimeout(function() { play_grid(rand); }, rand_delay);
+        setTimeout(function() { play_grid(rand); }, full_play_time + rand_delay);
+    }
+    setTimeout(clicker, 1000 + full_play_time)
+}
+
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+}
+
+function play_grid(i) {
+    let grid = document.getElementById("grid_inner_" + i);
+    if ((i in clicked && clicked[i]) || !(i in grid_timeouts)) {
+        grid.style.border = "1px solid black";
+        clicked[i] = false;
+        initial_draw(i);
+    }
+    else {
+        grid.style.border = "2px solid black";
+        clicked[i] = true;
+        grid_timeouts[i].push(
+            setTimeout(function() {
+                graphs[i].changenodes("graphRec3", '3');
+            }, 200)
+        );
+    }
+}
 
 function grid_hover(i) {
     let grid = document.getElementById("grid_inner_" + i);
     grid.addEventListener("click", function() {
-        if (i in clicked && clicked[i]) {
-            this.style.border = "1px solid black";
-            clicked[i] = false;
-            grid_select_pid(i);
-        }
-        else {
-            this.style.border = "2px solid black";
-            clicked[i] = true;
-            grid_timeouts[i].push(
-                setTimeout(function() {
-                    graphs[i].changenodes("graphRec3", '3');
-                }, 200)
-            );
-        }
-    });
-
-    grid.addEventListener("dblclick", function() {
         select_pid(i);
         modal.style.display = "block";
     });
 }
 
-function grid_select_pid(pid) {
+function fetch_data_draw(pid) {
     $.ajax({
         url: '/jsonet/',
         data: {
             'pid': pid
         },
         dataType: 'json',
-        success: function (data) {
-            initial = pid;
-            var graph0 = JSON.parse(data.g0),
-                graph0copy = JSON.parse(data.g0),
-                graph3 = JSON.parse(data.g3),
-                graph3copy = JSON.parse(data.g3),
-                graph6 = JSON.parse(data.g6),
-                graph6copy = JSON.parse(data.g6);
-
-            clearGrid(pid);
-            let graph = new RenderGraphGrid(graph0, graph3, graph6, pid);
-            graphs[pid] = graph;
-            document.getElementById("grid_" + pid + "_month").innerHTML =  "Month 0";
+        success: function (pid_data) {
+            all_data[pid] = pid_data;
+            initial_draw(pid);
         }
     });
+}
+
+function initial_draw(pid) {
+    if (!pid in all_data)
+        return;
+    let data = all_data[pid];
+    let graph0 = JSON.parse(data.g0),
+        graph0copy = JSON.parse(data.g0),
+        graph3 = JSON.parse(data.g3),
+        graph3copy = JSON.parse(data.g3),
+        graph6 = JSON.parse(data.g6),
+        graph6copy = JSON.parse(data.g6);
+
+    clearGrid(pid);
+    let graph = new RenderGraphGrid(graph0, graph3, graph6, pid);
+    graphs[pid] = graph;
+    document.getElementById("grid_" + pid + "_month").innerHTML =  "Month 0";
 }
 
 function clearGrid(pid) {
@@ -157,8 +190,13 @@ class RenderGraphGrid {
     restart(alphaR, initial) {
         if (initial) {
             for (let n of this.graph.nodes) {
-                n.x = this.width / 2 + 20*Math.random();
-                n.y = this.height / 2 + 20*Math.random();
+                if (this.pid in month_zeros && n.id in month_zeros[this.pid]) {
+                    n.x = month_zeros[this.pid][n.id].x;
+                    n.y = month_zeros[this.pid][n.id].y;
+                } else {
+                    n.x = this.width / 2 + 20*Math.random();
+                    n.y = this.height / 2 + 20*Math.random();
+                }
             }
         }
 
@@ -309,6 +347,12 @@ class RenderGraphGrid {
                 this.restart(this.alphaR_change, false);
             }.bind(this), i*this.nodetime));
             i ++;
+        }
+
+        if (month == "3") {
+            month_zeros[this.pid] = {};
+            for (let n of this.graph.nodes)
+                month_zeros[this.pid][n.id] = n;
         }
 
         grid_timeouts[this.pid].push(

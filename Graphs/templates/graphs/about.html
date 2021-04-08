@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="{% static 'graphs/css/skeleton.css' %}">
   <link rel="stylesheet" href="{% static 'graphs/css/graph.css' %}">
   <link rel="stylesheet" href="{% static 'graphs/css/tl.css' %}">
+  <link rel="stylesheet" href="{% static 'graphs/css/about.css' %}">
   <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
   <link rel="stylesheet" href="{% static 'graphs/css/nouislider.css' %}">
   <link rel="icon" type="image/png" href="{% static 'graphs/images/networks.png' %}">
@@ -30,8 +31,8 @@
         <nav class="navbar">
           <div class="container">
             <ul class="navbar-list">
-              <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">Home</a></li>
-              <li class="navbar-item"><a class="navbar-link" href="{% url 'Grid' %}">Grid</a></li>
+              <li class="navbar-item"><a class="navbar-link" href="{% url 'Grid' %}">Home</a></li>
+              <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">Index</a></li>
               <li class="navbar-item"><a class="navbar-link" href="{% url 'About' %}">About</a></li>
             </ul>
           </div>
@@ -41,10 +42,8 @@
         <div class="row">
           <div class="two columns" style="margin-top: 2%"></div>
           <div class="eight columns" style="margin-top: 2%">
-
+            <h6 class="docs-header">About</h6>
             <p>
-
-                <h6 class="docs-header">About</h6>
                 Net*works 1.0 is a graphical representation of changes in the social network of stroke patients at
                 3 and 6 months after an incident of ischemic stroke. The aim of the project is to prototype
                 a visual representation of the transformation of social networks of stroke patients.
@@ -55,15 +54,49 @@
                 and their recovery. Drawing upon the quantitative representation of social networks generated
                 by the study, this project builds a graphical representation of each patient's social network
                 over the course of 6 months post stroke.
-
             </p>
             <p>
               To learn more visit <a href="https://www.dhandlab.com/">dhandlab.com</a>
             </p>
-
             <p>
-
+               Created and maintained by Daniel Chafamo.
             </p>
+
+<!--            <p>-->
+<!--                For all enquiries, please email us using the form below.-->
+<!--            </p>-->
+<!--            <div class="background">-->
+<!--              <div class="container">-->
+<!--                <div class="screen">-->
+<!--                  <div class="screen-body">-->
+<!--                    <div class="screen-body-item left">-->
+<!--                      <div class="app-title">-->
+<!--                        <span>CONTACT</span>-->
+<!--                        <span>US</span>-->
+<!--                      </div>-->
+<!--                      <div class="app-contact">CONTACT INFO : +62 81 314 928 595</div>-->
+<!--                    </div>-->
+<!--                    <div class="screen-body-item">-->
+<!--                      <div class="app-form">-->
+<!--                        <div class="app-form-group">-->
+<!--                          <input class="app-form-control" placeholder="NAME">-->
+<!--                        </div>-->
+<!--                        <div class="app-form-group">-->
+<!--                          <input class="app-form-control" placeholder="EMAIL">-->
+<!--                        </div>-->
+<!--                        <div class="app-form-group message">-->
+<!--                          <textarea class="app-form-control" placeholder="MESSAGE" id="exampleMessage"></textarea>-->
+<!--                        </div>-->
+<!--                        <div class="app-form-group buttons">-->
+<!--                          <button class="app-form-button">CANCEL</button>-->
+<!--                          <button class="app-form-button">SEND</button>-->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
 
           </div>
           <div class="two columns " style="margin-top: 2%">
@@ -79,13 +112,5 @@
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="{% static 'graphs/js/d3.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'graphs/js/nouislider.min.js' %}"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="//rawgithub.com/phpepe/highcharts-regression/master/highcharts-regression.js"> </script>
-    <script type="text/javascript" src="{% static 'graphs/js/index.js' %}" ></script>
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
 </html>

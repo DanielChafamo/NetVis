@@ -31,8 +31,8 @@
         <nav class="navbar">
             <div class="container">
                 <ul class="navbar-list">
-                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">Home</a></li>
-                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Grid' %}">Grid</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Grid' %}">Home</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">Index</a></li>
                     <li class="navbar-item"><a class="navbar-link" href="{% url 'About' %}">About</a></li>
                 </ul>
             </div>
@@ -48,7 +48,7 @@
        <!-- <a href="#" style="display:block">  href="{% url 'Graph' %}?initial={{forloop.counter}}"-->
             <div class="two columns grid" id="grid_inner_{{ forloop.counter }}" >
                 <div class="grid_label">
-                    <p class="grid_label">Patient {{ s_id }}</p>
+                    <p class="grid_label"></p>
                 </div>
                 <div id="grid_{{ forloop.counter }}"></div>
                 <div class="grid_month">
