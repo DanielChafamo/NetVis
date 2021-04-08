@@ -124,7 +124,7 @@ class RenderGraphGrid {
         this.height = 160;
         this.rmargin = 10;
         this.lmargin = 0;
-        this.linktime = 2500;
+        this.linktime = 1200;
         this.nodetime = 10;
         this.monthtime = 4000;
         this.alphaT = 0.1;
