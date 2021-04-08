@@ -110,7 +110,7 @@ function select_pid(pid, play) {
             let lm6 = new StaticGraph(graph6copy, "#lm6"); 
 
             if (play)
-                setTimeout(play_video, 1000);
+                setTimeout(play_video, 2000);
         }
     });
 }
