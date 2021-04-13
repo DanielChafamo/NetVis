@@ -45,7 +45,7 @@
 
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 4% auto; /* 15% from the top and centered */
   width: 80%; /* Could be more or less, depending on screen size */
 }
 

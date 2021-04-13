@@ -41,12 +41,12 @@
 //       
 
 var graph = null;  
-
+var graph_height = 500;
 var timeouts = [];
  
 $(document).ready(function() {   
     if (initial == -1) initial = 5;
-    select_pid(initial, false);
+    select_pid(initial, false, graph_height);
 });
 
 $( "#target" ).submit(function( event ) {
@@ -67,7 +67,7 @@ $("#videoplay").click(function(event) {
 
 function play_video() {
     if (!first_play) {
-        select_pid(initial, false);
+        select_pid(initial, false, graph_height);
         $("#play-replay").removeClass("fa-repeat").addClass("fa-play");
         first_play = true;
     } else {
@@ -84,7 +84,7 @@ function play_video() {
 }
 
 // TODO: minimize calls
-function select_pid(pid, play) {
+function select_pid(pid, play, height) {
     $.ajax({
         url: '/jsonet/',
         data: {
@@ -100,8 +100,10 @@ function select_pid(pid, play) {
                 graph3copy = JSON.parse(data.g3),
                 graph6 = JSON.parse(data.g6),
                 graph6copy = JSON.parse(data.g6);
-            
-            graph = new RenderGraph(graph0, graph3, graph6, "#d3-0"); 
+
+            graph_height = height;
+
+            graph = new RenderGraph(graph0, graph3, graph6, "#d3-0", graph_height);
             $("#piddisp").html("Patient " + feats['study_id'][pid-1])
             $("#netsize").html("Network size = " + (graph.egodegree + 1)); 
 

@@ -4,7 +4,11 @@ var grid_timeouts = {};
 var clicker_timeouts = {};
 var graphs = {};
 var clicked = {};
-var full_play_time = 15000;
+var time_three_and_six = 12300;
+var time_month_zero = 3500;
+var full_play_time = time_month_zero + time_three_and_six
+var grid_play_delay = 1000;
+var grid_play_full = 2 * full_play_time;
 var all_data = {}
 var month_zeros = {}
 
@@ -21,11 +25,11 @@ function clicker() {
     for (let i = 0; i < num_patients/grid_cols; i++) {
         let rand = i * grid_cols + getRandomIntInclusive(1, grid_cols);
         rand = Math.min(num_patients, rand);
-        let rand_delay = getRandomIntInclusive(100, 1000);
+        let rand_delay = getRandomIntInclusive(500, grid_play_delay);
         setTimeout(function() { play_grid(rand); }, rand_delay);
-        setTimeout(function() { play_grid(rand); }, full_play_time + rand_delay);
+        setTimeout(function() { play_grid(rand); }, grid_play_full + rand_delay);
     }
-    setTimeout(clicker, 1000 + full_play_time)
+    setTimeout(clicker, grid_play_delay + grid_play_full)
 }
 
 
@@ -45,18 +49,33 @@ function play_grid(i) {
     else {
         grid.style.border = "2px solid black";
         clicked[i] = true;
-        grid_timeouts[i].push(
-            setTimeout(function() {
-                graphs[i].changenodes("graphRec3", '3');
-            }, 200)
-        );
+        play_from_zero(i);
+        play_from_six(i, full_play_time);
     }
+}
+
+function play_from_zero(i) {
+    grid_timeouts[i].push(
+        setTimeout(function() {
+            graphs[i].changenodes("graphRec3", '3');
+        }, time_month_zero)
+    );
+}
+
+function play_from_six(i, delay) {
+    grid_timeouts[i].push(
+        setTimeout(function() {
+            initial_draw(i);
+            play_from_zero(i);
+        }, delay)
+    );
 }
 
 function grid_hover(i) {
     let grid = document.getElementById("grid_inner_" + i);
     grid.addEventListener("click", function() {
-        select_pid(i, true);
+
+        select_pid(i, true, 300);
         modal.style.display = "block";
     });
 }

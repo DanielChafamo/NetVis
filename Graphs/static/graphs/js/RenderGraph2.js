@@ -5,12 +5,12 @@ var colors = {}
     colors[-2] = 'red';
 
 class RenderGraph {
-    constructor(graph, graph3, graph6, div_id) { 
+    constructor(graph, graph3, graph6, div_id, height=500) {
         this.graph = graph; 
         this.changing = true;
         this.egodegree = -1;
         this.width = 850;
-        this.height = 500;
+        this.height = height;
         this.linktime = 1000;
         this.nodetime = 10;
         this.monthtime = 4000;
@@ -229,8 +229,8 @@ class RenderGraph {
         }
 
         timeouts.push(
-            setTimeout(function() { 
-                document.getElementById("netsize").innerHTML = "Network size = " + (this.egodegree + 1); 
+            setTimeout(function() {
+                $("#netsize").html("Network size = " + (this.get_ego_degree(this[graphmonth]) + 1));
                 $("#lm"+month).css('-webkit-filter', 'blur(0px)');
                 fade_progress('100%');
                 timeouts.push(
@@ -260,6 +260,14 @@ class RenderGraph {
                 this.graph.links.push(this.graphRec.links[i]);
         }
         this.restart(this.alphaR_change, false);
+    }
+
+    get_ego_degree(graph) {
+        let links = graph.links.map(this.get_id);
+        for (let n of graph.nodes) {
+            if (n.name == "Ego")
+                return links.filter((x)=>x.split('_').includes(n.id.toString())).length;
+        }
     }
 
     dragstarted(d) {
