@@ -140,7 +140,7 @@ function highChartGraph(data, fit, feat_x_label, feat_y_label) {
         },
 
         title: {
-            text: feat_y_label + ' Versus ' + feat_x_label
+            text: feat_x_label + ' Versus ' + feat_y_label
         },
 
         xAxis: {

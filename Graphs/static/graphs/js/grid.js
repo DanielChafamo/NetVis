@@ -95,7 +95,7 @@ function fetch_data_draw(pid) {
 }
 
 function initial_draw(pid) {
-    if (!pid in all_data)
+    if (!(pid in all_data))
         return;
     let data = all_data[pid];
     let graph0 = JSON.parse(data.g0),
@@ -112,6 +112,10 @@ function initial_draw(pid) {
 }
 
 function clearGrid(pid) {
+    if (pid in graphs) {
+        graphs[pid].simulation.stop();
+        delete(graphs[pid]);
+    }
     let svgs = document.getElementById("grid_" + pid).getElementsByTagName("svg");
     for (let i = 0; i < svgs.length; i++)
         svgs[i].remove();
@@ -139,8 +143,10 @@ class RenderGraphGrid {
         this.pid = pid
         this.changing = true;
         this.egodegree = -1;
-        this.width = 160;
+        this.width = $(this.div_id).width();
         this.height = 160;
+        this.width_percent = "100%";
+        this.height_percent = 160;
         this.rmargin = 10;
         this.lmargin = 0;
         this.linktime = 1200;
@@ -162,8 +168,8 @@ class RenderGraphGrid {
 
         this.svg = d3.select(this.div_id).append("svg")
             .attr("id", 'svgmain')
-            .attr("width", this.width)
-            .attr("height", this.height);
+            .attr("width", this.width_percent)
+            .attr("height", this.height_percent);
 
         var g = this.svg.append("g")
              .attr("transform", "translate(" + 0 + "," + 0 + ")");
@@ -274,6 +280,8 @@ class RenderGraphGrid {
     }
 
     ticked() {
+        this.width = $(this.div_id).width();
+
         this.node.attr("cx", function(d) { return this.getPos(d, 'x'); }.bind(this))
             .attr("cy", function(d) { return this.getPos(d, 'y'); }.bind(this))
 

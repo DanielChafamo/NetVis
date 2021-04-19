@@ -18,10 +18,10 @@ def Graph(request):
     return render(request, 'graphs/graph.html', context=context)
 
 
-def Index(request):
+def Explore(request):
     fsource = os.path.join(settings.STATIC_ROOT, 'graphs/js/filter_feats.json')
     context = {'feats': json.dumps(json.load(open(fsource)))}
-    return render(request, 'graphs/index.html', context=context)
+    return render(request, 'graphs/explore.html', context=context)
 
 
 def Grid(request):

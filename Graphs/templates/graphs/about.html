@@ -1,47 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'graphs/base.html' %}
 
-  <meta charset="utf-8">
-  <title>NET*WORKS 1.0</title>
-  <meta name="description" content="">
-  <meta name="author" content="Daniel Chafamo">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+{% block styles %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'graphs/css/about.css' %}"> 
+{% endblock styles%}
 
-  {% load static %}
-
-  <link rel="stylesheet" href="{% static 'graphs/css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'graphs/css/skeleton.css' %}">
-  <link rel="stylesheet" href="{% static 'graphs/css/graph.css' %}">
-  <link rel="stylesheet" href="{% static 'graphs/css/tl.css' %}">
-  <link rel="stylesheet" href="{% static 'graphs/css/about.css' %}">
-  <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-  <link rel="stylesheet" href="{% static 'graphs/css/nouislider.css' %}">
-  <link rel="icon" type="image/png" href="{% static 'graphs/images/networks.png' %}">
-
-  {% block head %}{% endblock head %}
-</head>
-<body>
-
-  {% block body %}{% endblock body %} 
-
-    <div class="container">
-      <form id="target">
-        <nav class="navbar">
-          <div class="container">
-            <ul class="navbar-list">
-              <li class="navbar-item"><a class="navbar-link" href="{% url 'Grid' %}">Home</a></li>
-              <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">Index</a></li>
-              <li class="navbar-item"><a class="navbar-link" href="{% url 'About' %}">About</a></li>
-            </ul>
-          </div>
-        </nav>
-      </form>
-
-        <div class="row about">
-          <div class="two columns" style="margin-top: 2%"></div>
-          <div class="eight columns" style="margin-top: 2%">
+{% block body %}
+    <div class="row about">
+        <div class="two columns" style="margin-top: 2%"></div>
+        <div class="eight columns" style="margin-top: 2%">
             <h6 class="docs-header">About</h6>
             <p>
                 Net*works 1.0 is a graphical representation of changes in the social network of stroke patients at
@@ -56,75 +23,30 @@
                 over the course of 6 months post stroke.
             </p>
             <p>
-              To learn more visit <a href="https://www.dhandlab.com/">dhandlab.com</a>
+                To learn more visit <a href="https://www.dhandlab.com/">dhandlab.com</a>
             </p>
-
             <h6 class="docs-header">Author</h6>
             <p>
-              Daniel Chafamo is a software engineer and aspiring physician. He graduated from Harvard
-               University in 2019 with a Bachelor's Degree in Computer Science.
+                Daniel Chafamo is a software engineer and aspiring physician. He graduated from Harvard
+                University in 2019 with a Bachelor's Degree in Computer Science.
 
-              As an undergrad, Daniel worked in the Born Lab at Harvard Medical School and
-              the Fukai Lab at Riken Brain Science Institute exploring the purpose of feedback
-              neural connections in visual and auditory neural circuits.
+                As an undergrad, Daniel worked in the Born Lab at Harvard Medical School and
+                the Fukai Lab at Riken Brain Science Institute exploring the purpose of feedback
+                neural connections in visual and auditory neural circuits.
 
-              He is a believer in the power of technology and its ability to improve patient care.
-               He enjoys using his skills to contribute to exciting technological projects aimed at making
-              healthcare more effective, less expensive, and more equitable. He was a research trainee
-              at the Dhand Lab in 2018 where he assisted in the <i>Social Networks and Stroke Outcomes</i> project
-              and developed this website.
-              In his free time, Daniel likes to read Russian novels, play soccer and hike.
+                He is a believer in the power of technology and its ability to improve patient care.
+                He enjoys using his skills to contribute to exciting technological projects aimed at making
+                healthcare more effective, less expensive, and more equitable. He was a research trainee
+                at the Dhand Lab in 2018 where he assisted in the <i>Social Networks and Stroke Outcomes</i> project
+                and developed this website.
+                In his free time, Daniel likes to read Russian novels, play soccer and hike.
             </p>
-
-<!--            <p>-->
-<!--                For all enquiries, please email us using the form below.-->
-<!--            </p>-->
-<!--            <div class="background">-->
-<!--              <div class="container">-->
-<!--                <div class="screen">-->
-<!--                  <div class="screen-body">-->
-<!--                    <div class="screen-body-item left">-->
-<!--                      <div class="app-title">-->
-<!--                        <span>CONTACT</span>-->
-<!--                        <span>US</span>-->
-<!--                      </div>-->
-<!--                      <div class="app-contact">CONTACT INFO : +62 81 314 928 595</div>-->
-<!--                    </div>-->
-<!--                    <div class="screen-body-item">-->
-<!--                      <div class="app-form">-->
-<!--                        <div class="app-form-group">-->
-<!--                          <input class="app-form-control" placeholder="NAME">-->
-<!--                        </div>-->
-<!--                        <div class="app-form-group">-->
-<!--                          <input class="app-form-control" placeholder="EMAIL">-->
-<!--                        </div>-->
-<!--                        <div class="app-form-group message">-->
-<!--                          <textarea class="app-form-control" placeholder="MESSAGE" id="exampleMessage"></textarea>-->
-<!--                        </div>-->
-<!--                        <div class="app-form-group buttons">-->
-<!--                          <button class="app-form-button">CANCEL</button>-->
-<!--                          <button class="app-form-button">SEND</button>-->
-<!--                        </div>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-
-          </div>
-          <div class="two columns " style="margin-top: 2%">
-          </div>
-
+            
 
         </div>
-    </div>
-  
+        <div class="two columns " style="margin-top: 2%">
+        </div>
 
-    <!-- STYLES AND SCRIPTS --> 
-    <script>var feats = {% autoescape off %}{{ feats }}{% endautoescape %};</script>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="{% static 'graphs/js/d3.min.js' %}"></script>
-</body>
-</html>
+
+    </div>
+{% endblock body %}

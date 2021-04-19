@@ -1,126 +1,88 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'graphs/base.html' %}
 
-    <meta charset="utf-8">
-    <title>NET*WORKS 1.0</title>
-    <meta name="description" content="">
-    <meta name="author" content="Daniel Chafamo">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'> -->
+{% block styles %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'graphs/css/grid.css' %}">
+{% endblock styles%}
 
-    {% load static %}
+{% block body %}
 
-    <link rel="stylesheet" href="{% static 'graphs/css/normalize.css' %}">
-    <link rel="stylesheet" href="{% static 'graphs/css/skeleton.css' %}">
-    <link rel="stylesheet" href="{% static 'graphs/css/grid.css' %}">
-    <link rel="stylesheet" href="{% static 'graphs/css/graph.css' %}">
-    <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-    <link rel="stylesheet" href="{% static 'graphs/css/nouislider.css' %}">
-    <link rel="stylesheet" href="{% static 'graphs/css/tl.css' %}">
-    <link rel="icon" type="image/png" href="{% static 'graphs/images/networks.png' %}">
-
-    {% block head %}{% endblock head %}
-</head>
-<body style="background-color:'#FFFAF0';">
-
-<div class="container">
-    <form id="target">
-        <nav class="navbar">
-            <div class="container">
-                <ul class="navbar-list">
-                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Grid' %}">Home</a></li>
-                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Index' %}">Index</a></li>
-                    <li class="navbar-item"><a class="navbar-link" href="{% url 'About' %}">About</a></li>
-                </ul>
-            </div>
-        </nav>
-    </form>
-
-    <div class="row grid_row">
-        {% for s_id in study_id %}
-        {% if forloop.counter0|divisibleby:6 %}
-    </div>
-    <div class="row grid_row">
-        {% endif %}
-       <!-- <a href="#" style="display:block">  href="{% url 'Graph' %}?initial={{forloop.counter}}"-->
-            <div class="two columns grid" id="grid_inner_{{ forloop.counter }}" >
-                <div class="grid_label">
-                    <p class="grid_label"></p>
-                </div>
-                <div id="grid_{{ forloop.counter }}"></div>
-                <div class="grid_month">
-                    <p class="grid_month" id="grid_{{ forloop.counter }}_month"> Month 0</p>
-                </div>
-            </div>
-        <!--</a>-->
-        {% endfor %}
-    </div>
-    <div class="modal" id="myModal">
-        <div class="maincontainer modal-content">
-            <div class="legend">
-                <div class='legendhead legendtext'>Legend<br></div>
-                <div class='legendtext'>
-                    <svg height="10" width="28">
-                        <line x1="0" y1="5" x2="28" y2="5" id="wties"/>
-                    </svg>
-                    Weak ties
-                </div>
-                <div class='legendtext'>
-                    <svg height="10" width="28">
-                        <line x1="0" y1="5" x2="28" y2="5" id="sties"/>
-                    </svg>
-                    Strong ties
-                </div>
-            </div>
-            <span class="close">&times;</span>
-            <div class="pidlabel" id="piddisp"></div>
-            <div class="label" id="netsize"></div>
-            <div class="mySlides fade">
-                <div id="d3-0"></div>
-            </div>
-            <div id="lm-progress"></div>
-            <div class="lamndmark">
-                <div class="landmarks" id="lm0"></div>
-                <div class="spacer"></div>
-                <div class="landmarks" id="lm3"></div>
-                <div class="spacer"></div>
-                <div class="landmarks" id="lm6"></div>
-                <br>
-                <div class="labels label" id="label0">Enrollment</div>
-                <div class="spacer"></div>
-                <div class="labels label" id="label3">3 Month</div>
-                <div class="spacer"></div>
-                <div class="labels label" id="label6">6 Month</div>
-            </div>
-            <div style='border-top:1px solid black'>
-                <button id="videoplay" type="submit" class="button vidplay">
-                    <i class="fa fa-play" id="play-replay"></i>
-                </button>
-            </div>
+<div class="row grid_row">
+    {% for s_id in study_id %}
+    {% if forloop.counter0|divisibleby:6 %}
+</div>
+<div class="row grid_row">
+    {% endif %}
+    <div class="two columns grid" id="grid_inner_{{ forloop.counter }}">
+        <div class="grid_label">
+            <p class="grid_label"></p>
+        </div>
+        <div id="grid_{{ forloop.counter }}"></div>
+        <div class="grid_month">
+            <p class="grid_month" id="grid_{{ forloop.counter }}_month"> Month 0</p>
         </div>
     </div>
-
-
+    {% endfor %}
 </div>
 
-<!-- STYLES AND SCRIPTS -->
-<script>
-      var feats = {% autoescape off %}{{ feats }}{% endautoescape %};
 
-</script>
-<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="{% static 'graphs/js/d3.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'graphs/js/nouislider.min.js' %}"></script>
+<div id="grid_body"></div>
+<div id="pagination"></div>
+
+
+<div class="modal" id="myModal">
+    <div class="maincontainer modal-content">
+        <div class="legend">
+            <div class='legendhead legendtext'>Legend<br></div>
+            <div class='legendtext'>
+                <svg height="10" width="28">
+                    <line x1="0" y1="5" x2="28" y2="5" id="wties"/>
+                </svg>
+                Weak ties
+            </div>
+            <div class='legendtext'>
+                <svg height="10" width="28">
+                    <line x1="0" y1="5" x2="28" y2="5" id="sties"/>
+                </svg>
+                Strong ties
+            </div>
+        </div>
+        <span class="close">&times;</span>
+        <div class="pidlabel" id="piddisp"></div>
+        <div class="label" id="netsize"></div>
+        <div class="mySlides fade">
+            <div id="d3-0"></div>
+        </div>
+        <div id="lm-progress"></div>
+        <div class="lamndmark">
+            <div class="landmarks" id="lm0"></div>
+            <div class="spacer"></div>
+            <div class="landmarks" id="lm3"></div>
+            <div class="spacer"></div>
+            <div class="landmarks" id="lm6"></div>
+            <br>
+            <div class="labels label" id="label0">Enrollment</div>
+            <div class="spacer"></div>
+            <div class="labels label" id="label3">3 Month</div>
+            <div class="spacer"></div>
+            <div class="labels label" id="label6">6 Month</div>
+        </div>
+        <div style='border-top:1px solid black'>
+            <button id="videoplay" type="submit" class="button vidplay">
+                <i class="fa fa-play" id="play-replay"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+{% endblock body %}
+
+{% block scripts %}
+{% load static %}
+<script type="text/javascript" src="{% static 'graphs/js/pagination.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/grid.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/RenderGraph2.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/StaticGraph2.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/graph.js' %}"></script>
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-</html>
-
+{% endblock scripts %}

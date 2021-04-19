@@ -1,13 +1,13 @@
 .grid {
   border: 1px solid black;
-  height: 180px;
-  margin: 5px;
+  width: 16% !important;
+  margin: .3%;
   font-size: 0.6em;
   cursor: pointer;
 }
 
 .grid_row {
-  width: 1200px;
+  width: 100%;
 }
 
 .grid_label {
@@ -23,8 +23,9 @@
 }
 
 .grid_month {
-  margin-left: 50%;
-  margin-top: -20px;
+  text-align: right;
+  margin-right: 1%;
+  margin-bottom: 0;
   font-family: monospace;
   font-size: 8px;
   color: #555;
