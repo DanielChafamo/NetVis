@@ -135,6 +135,7 @@ function highChartGraph(data, fit, feat_x_label, feat_y_label) {
 
         chart: {
             type: 'bubble',
+            height: '60%',
             plotBorderWidth: 1,
             zoomType: 'xy'
         },
