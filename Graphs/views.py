@@ -5,12 +5,6 @@ import json
 import os
 
 
-num_patients = 4*6
-all_data = {}
-for pid in range(1, num_patients + 1):
-    source = os.path.join(settings.STATIC_ROOT, 'graphs/js/jsoNets/{}_'.format(pid))
-    all_data[pid] = {'g{}'.format(i): json.dumps(json.load(open(source + '{}m_graph.json'.format(i)))) for i in [0, 3, 6]}
-
 # Create your views here.
 def Graph(request):
     fsource = os.path.join(settings.STATIC_ROOT, 'graphs/js/filter_feats.json')
@@ -31,8 +25,7 @@ def Grid(request):
 
     context = {
         'feats': json.dumps(feats),
-        'study_id': [int(s_id) for s_id in feats["study_id"]],
-        'all_data': json.dumps(all_data)
+        'study_id': [int(s_id) for s_id in feats["study_id"]]
     }
     return render(request, 'graphs/grid.html', context=context)
 

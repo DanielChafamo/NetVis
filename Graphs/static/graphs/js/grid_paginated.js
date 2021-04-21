@@ -5,6 +5,7 @@ var grid_timeouts = {};
 var clicker_timeouts = {'main':[]};
 var graphs = {};
 var all_graphs = {};
+var all_data = {};
 var clicked = {};
 var time_three_and_six = 9300;
 var time_month_zero = 3500;
@@ -129,7 +130,7 @@ function grid_hover(i) {
     });
 }
 
-function fetch_data(pid) {
+function fetch_data(pid, draw=false) {
     $.ajax({
         url: '/jsonet/',
         data: {
@@ -138,13 +139,14 @@ function fetch_data(pid) {
         dataType: 'json',
         success: function (pid_data) {
             all_data[pid] = pid_data;
+            if (draw) initial_draw(pid)
         }
     });
 }
 
 function initial_draw(pid) {
     if (!(pid in all_data))
-        return;
+        return fetch_data(pid, true);
     let data = all_data[pid];
     let graph0 = JSON.parse(data.g0),
         graph0copy = JSON.parse(data.g0),

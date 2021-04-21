@@ -64,10 +64,6 @@
 
 {% block scripts %}
 {% load static %}
-<script>
-      var all_data = {% autoescape off %}{{ all_data }}{% endautoescape %};
-
-</script>
 <script type="text/javascript" src="{% static 'graphs/js/pagination.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/grid_paginated.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/RenderGraph2.js' %}"></script>
