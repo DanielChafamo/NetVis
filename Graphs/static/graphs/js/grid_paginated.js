@@ -2,8 +2,9 @@ var num_patients = feats['study_id'].length;
 var grid_cols = 6;
 row_per_page = 4;
 var grid_timeouts = {};
-var clicker_timeouts = {};
+var clicker_timeouts = {'main':[]};
 var graphs = {};
+var all_graphs = {};
 var clicked = {};
 var time_three_and_six = 12300;
 var time_month_zero = 3500;
@@ -14,11 +15,8 @@ var all_data = {}
 var month_zeros = {}
 
 $(document).ready(function() {
-    for (let i = 1; i <= num_patients; i++) {
+    for (let i = 1; i <= num_patients; i++)
         fetch_data(i);
-    }
-    setTimeout(clicker, full_play_time/2);
-
 });
 
 function render_grids(p_ids) {
@@ -26,26 +24,25 @@ function render_grids(p_ids) {
         initial_draw(pid);
         grid_hover(pid);
     })
-//    setTimeout(clicker, full_play_time/2);
 
 }
 
 $('#pagination').pagination({
-    dataSource: [...Array(num_patients).keys()],
+    dataSource: [...Array(num_patients).keys()].map(i => i + 1),
     pageSize: grid_cols*row_per_page,
     callback: function(p_ids, pagination) {
-        // template method of yourself
+
         clearAll();
         var html = template(p_ids);
         $('#grid_body').html(html);
         render_grids(p_ids);
+        clicker();
     }
 });
 
 function template(data) {
     var html = '<div class="row grid_row">'
     data.forEach(function(pid, index) {
-        pid = pid+1;
         if (index % grid_cols === 0)
             html += '</div><div class="row grid_row">';
         html += '<div class="two columns grid" id="grid_inner_' + pid + '"><div class="grid_label"><p class="grid_label"></p></div><div id="grid_' + pid +'"></div><div class="grid_month"><p class="grid_month" id="grid_' + pid + '_month"> Month 0</p></div></div>';
@@ -61,6 +58,18 @@ function clearAll() {
         }
         clearGrid(i);
     }
+    clicked = [];
+    for(let key in clicker_timeouts) {
+        for (let i = 0; i < clicker_timeouts[key].length; i++)
+            clearTimeout(clicker_timeouts[key][i]);
+    }
+    for (let i = 1; i <= num_patients; i++) {
+        clicker_timeouts[i] = [];
+        let grid = $("#grid_inner_" + i);
+        grid.css('border', '1px solid black');
+    }
+
+
 }
 
 function clicker() {
@@ -68,10 +77,10 @@ function clicker() {
         let rand = i * grid_cols + getRandomIntInclusive(1, grid_cols);
         rand = Math.min(num_patients, rand);
         let rand_delay = getRandomIntInclusive(500, grid_play_delay);
-        setTimeout(function() { play_grid(rand); }, rand_delay);
-        setTimeout(function() { play_grid(rand); }, grid_play_full + rand_delay);
+        clicker_timeouts[rand].push(setTimeout(function() { play_grid(rand); }, rand_delay));
+        clicker_timeouts[rand].push(setTimeout(function() { play_grid(rand); }, grid_play_full + rand_delay));
     }
-    setTimeout(clicker, grid_play_delay + grid_play_full)
+    clicker_timeouts['main'].push(setTimeout(clicker, grid_play_delay + grid_play_full));
 }
 
 function getRandomIntInclusive(min, max) {
@@ -81,7 +90,8 @@ function getRandomIntInclusive(min, max) {
 }
 
 function play_grid(i) {
-    if (!(i in graphs)) return;
+    if (!(i in graphs))
+        return;
     let grid = $("#grid_inner_" + i);
     if ((i in clicked && clicked[i]) || !(i in grid_timeouts)) {
         grid.css('border', '1px solid black');
@@ -97,6 +107,8 @@ function play_grid(i) {
 }
 
 function play_from_zero(i) {
+    if (!(i in graphs))
+        return;
     grid_timeouts[i].push(
         setTimeout(function() {
             graphs[i].changenodes("graphRec3", '3');
@@ -105,6 +117,8 @@ function play_from_zero(i) {
 }
 
 function play_from_six(i, delay) {
+    if (!(i in graphs))
+        return;
     grid_timeouts[i].push(
         setTimeout(function() {
             initial_draw(i);
@@ -116,7 +130,7 @@ function play_from_six(i, delay) {
 function grid_hover(i) {
     let grid = $("#grid_inner_" + i);
     grid.click(function() {
-        select_pid(i, true, 300);
+        select_pid(i, true, 330);
         modal.style.display = "block";
     });
 }
@@ -146,10 +160,17 @@ function initial_draw(pid) {
         graph6copy = JSON.parse(data.g6);
 
     clearGrid(pid);
-    let graph = new RenderGraphGrid(graph0, graph3, graph6, pid);
-    graphs[pid] = graph;
+    graphs[pid] = 0;
+    if (!(pid in all_graphs)) {
+        all_graphs[pid] = new RenderGraphGrid(graph0, graph3, graph6, pid);
+    } else {
+        all_graphs[pid].build(graph0, graph3, graph6, pid);
+    }
+    graphs[pid] = all_graphs[pid];
     $("#grid_" + pid + "_month").html("Month 0");
 }
+
+
 
 function clearGrid(pid) {
     let svgs = $("#grid_" + pid).find("svg");
@@ -177,12 +198,18 @@ var colors = {}
 
 class RenderGraphGrid {
     constructor(graph, graph3, graph6, pid) {
+        this.build(graph, graph3, graph6, pid);
+    }
+
+    build(graph, graph3, graph6, pid) {
         this.graph = graph;
         this.div_id = "#grid_" + pid;
+        this.div_element = $(this.div_id);
+        this.month_element = $(this.div_id + "_month")
         this.pid = pid
         this.changing = true;
         this.egodegree = -1;
-        this.width = $(this.div_id).width();
+        this.width = this.div_element.width();
         this.height = 160;
         this.width_percent = "100%";
         this.height_percent = 160;
@@ -252,6 +279,8 @@ class RenderGraphGrid {
     }
 
     restart(alphaR, initial) {
+        if (!(this.pid in graphs)) return;
+
         if (initial) {
             for (let n of this.graph.nodes) {
                 if (this.pid in month_zeros && n.id in month_zeros[this.pid]) {
@@ -307,11 +336,6 @@ class RenderGraphGrid {
                     .duration(this.linktime)
                     .attr("stroke-opacity", 0.8); }.bind(this))
         .merge(this.link);
-
-        // Highlight changing Node
-            // .filter(function(d, i) {
-            //     if (d.changing) console.log(d); });;
-
         // Update and restart the simulation.
         this.simulation.nodes(this.graph.nodes);
         this.simulation.force("link").links(this.graph.links);
@@ -319,7 +343,9 @@ class RenderGraphGrid {
     }
 
     ticked() {
-        this.width = $(this.div_id).width();
+        if (!(this.pid in graphs)) return;
+
+        this.width = this.div_element.width();
 
         this.node.attr("cx", function(d) { return this.getPos(d, 'x'); }.bind(this))
             .attr("cy", function(d) { return this.getPos(d, 'y'); }.bind(this))
@@ -333,20 +359,14 @@ class RenderGraphGrid {
             .attr("x2", function(d) { return d.target.x; })
             .attr("y2", function(d) { return d.target.y; });
 
-        let links = this.graph.links.map(this.get_id);
-        for (let n of this.graph.nodes) {
-            n.degree = links.filter((x)=>x.split('_').includes(n.id.toString())).length
-            if (n.name == "Patient") this.egodegree = n.degree
-        }
+//        let links = this.graph.links.map(this.get_id);
+//        for (let n of this.graph.nodes) {
+//            n.degree = links.filter((x)=>x.split('_').includes(n.id.toString())).length
+//            if (n.name == "Patient") this.egodegree = n.degree
+//        }
 
         this.svg.selectAll("circle")
             .attr("r", function (d) { return 0.4 + 0.3*d.degree})
-            // .style("fill", function (d) {
-            //     if (d.changing) return 'red';
-            //     else return colors[1+(d.name != "Patient")];})
-            // .style("stroke", function (d) {
-            //     if (d.changing) return 'red';
-            //     else return 'black';})
             .style("fill", function (d) { return colors[1+(d.name != "Patient")]; })
 
         this.link
@@ -356,6 +376,8 @@ class RenderGraphGrid {
     }
 
     changenodes(graphmonth, month) {
+        if (!(this.pid in graphs)) return;
+
         var in_links = this.graph.links.map(this.get_id);
         var out_links = this[graphmonth].links.map(this.get_id);
         var remove = in_links.filter((x)=>out_links.indexOf(x)===-1);
@@ -423,8 +445,7 @@ class RenderGraphGrid {
 
         grid_timeouts[this.pid].push(
             setTimeout(function() {
-                $(this.div_id + "_month").html("Month " + month);
-                $("#lm" + month).css('-webkit-filter', 'blur(0px)');
+                this.month_element.html("Month " + month);
                 grid_timeouts[this.pid].push(
                     setTimeout(function() {
                         if (this.changing) {
@@ -475,7 +496,6 @@ class RenderGraphGrid {
         if (d.name == "Patient") d[axis] = bound / 2;
         return d[axis] = Math.max(this.lmargin, Math.min(bound - this.rmargin, d[axis]));
     }
-
 }
 
 
@@ -491,3 +511,30 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+var elem = document.getElementById("grid_body");
+function openFullscreen() {
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+    } else if (elem.webkitRequestFullscreen) { /* Safari */
+        elem.webkitRequestFullscreen();
+    } else if (elem.msRequestFullscreen) { /* IE11 */
+        elem.msRequestFullscreen();
+    }
+//    clearAll();
+//    let p_ids = [...Array(num_patients).keys()].map(i => i + 1);
+//    $('#grid_body').html(template_full(p_ids));
+//    render_grids(p_ids);
+//    clicker();
+}
+
+function closeFullscreen() {
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  } else if (document.webkitExitFullscreen) { /* Safari */
+    document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) { /* IE11 */
+    document.msExitFullscreen();
+  }
+}
+

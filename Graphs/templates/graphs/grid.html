@@ -7,28 +7,9 @@
 
 {% block body %}
 
-<div class="row grid_row">
-    {% for s_id in study_id %}
-    {% if forloop.counter0|divisibleby:6 %}
-</div>
-<div class="row grid_row">
-    {% endif %}
-    <div class="two columns grid" id="grid_inner_{{ forloop.counter }}">
-        <div class="grid_label">
-            <p class="grid_label"></p>
-        </div>
-        <div id="grid_{{ forloop.counter }}"></div>
-        <div class="grid_month">
-            <p class="grid_month" id="grid_{{ forloop.counter }}_month"> Month 0</p>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
 
 <div id="grid_body"></div>
-<div id="pagination"></div>
-
+<div id="pagination" class="pagination"><button class="full_screen"onclick="openFullscreen();"> | <i class="fa fa-arrows-alt"></i> | </button></div>
 
 <div class="modal" id="myModal">
     <div class="maincontainer modal-content">
@@ -81,7 +62,7 @@
 {% block scripts %}
 {% load static %}
 <script type="text/javascript" src="{% static 'graphs/js/pagination.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'graphs/js/grid.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/grid_paginated.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/RenderGraph2.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/StaticGraph2.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/graph.js' %}"></script>
