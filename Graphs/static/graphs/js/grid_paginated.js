@@ -15,6 +15,19 @@ var grid_play_full = 2 * full_play_time;
 var month_zeros = {}
 
 $(document).ready(function() {
+    for (let i = 1; i <= num_patients; i++)
+        fetch_data(i);
+    setTimeout(register_pagination, 1000);
+});
+
+function render_grids(p_ids) {
+    p_ids.forEach(function(pid) {
+        initial_draw(pid);
+        grid_hover(pid);
+    })
+}
+
+function register_pagination() {
     $('#pagination').pagination({
         dataSource: [...Array(num_patients).keys()].map(i => i + 1),
         pageSize: grid_cols*row_per_page,
@@ -26,16 +39,6 @@ $(document).ready(function() {
             clicker();
         }
     });
-    for (let i = 1; i <= num_patients; i++)
-        fetch_data(i);
-});
-
-function render_grids(p_ids) {
-    p_ids.forEach(function(pid) {
-        initial_draw(pid);
-        grid_hover(pid);
-    })
-
 }
 
 function template(data) {
