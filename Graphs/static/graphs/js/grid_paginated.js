@@ -25,6 +25,8 @@ $(document).ready(function() {
             clicker();
         }
     });
+    for (let i = 1; i <= num_patients; i++)
+        fetch_data(i);
 });
 
 function render_grids(p_ids) {
@@ -34,8 +36,6 @@ function render_grids(p_ids) {
     })
 
 }
-
-
 
 function template(data) {
     var html = '<div class="row grid_row">'
@@ -64,8 +64,6 @@ function clearAll() {
         clicker_timeouts[i] = [];
         $("#grid_inner_" + i).css('border-width', '1px 1px');
     }
-
-
 }
 
 function clicker() {

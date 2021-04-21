@@ -5,7 +5,7 @@ import json
 import os
 
 
-num_patients = 139
+num_patients = 4*6
 all_data = {}
 for pid in range(1, num_patients + 1):
     source = os.path.join(settings.STATIC_ROOT, 'graphs/js/jsoNets/{}_'.format(pid))
