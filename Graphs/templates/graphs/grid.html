@@ -7,10 +7,13 @@
 
 {% block body %}
 
-
-<div id="grid_body"></div>
-<div id="pagination" class="pagination"><button class="full_screen"onclick="openFullscreen();"> | <i class="fa fa-arrows-alt"></i> | </button></div>
-
+<div id="grid_all">
+<button class="full_screen"onclick="openFullscreen();">
+    fullscreen
+</button>
+<div id="grid_outer"><div id="grid_body"></div></div>
+<div id="pagination" class="pagination"></div>
+</div>
 <div class="modal" id="myModal">
     <div class="maincontainer modal-content">
         <div class="legend">
@@ -61,6 +64,10 @@
 
 {% block scripts %}
 {% load static %}
+<script>
+      var all_data = {% autoescape off %}{{ all_data }}{% endautoescape %};
+
+</script>
 <script type="text/javascript" src="{% static 'graphs/js/pagination.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/grid_paginated.js' %}"></script>
 <script type="text/javascript" src="{% static 'graphs/js/RenderGraph2.js' %}"></script>

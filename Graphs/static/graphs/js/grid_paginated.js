@@ -6,17 +6,25 @@ var clicker_timeouts = {'main':[]};
 var graphs = {};
 var all_graphs = {};
 var clicked = {};
-var time_three_and_six = 12300;
+var time_three_and_six = 9300;
 var time_month_zero = 3500;
 var full_play_time = time_month_zero + time_three_and_six
 var grid_play_delay = 1000;
 var grid_play_full = 2 * full_play_time;
-var all_data = {}
 var month_zeros = {}
 
 $(document).ready(function() {
-    for (let i = 1; i <= num_patients; i++)
-        fetch_data(i);
+    $('#pagination').pagination({
+        dataSource: [...Array(num_patients).keys()].map(i => i + 1),
+        pageSize: grid_cols*row_per_page,
+        callback: function(p_ids, pagination) {
+            clearAll();
+            var html = template(p_ids);
+            $('#grid_body').html(html);
+            render_grids(p_ids);
+            clicker();
+        }
+    });
 });
 
 function render_grids(p_ids) {
@@ -27,18 +35,7 @@ function render_grids(p_ids) {
 
 }
 
-$('#pagination').pagination({
-    dataSource: [...Array(num_patients).keys()].map(i => i + 1),
-    pageSize: grid_cols*row_per_page,
-    callback: function(p_ids, pagination) {
 
-        clearAll();
-        var html = template(p_ids);
-        $('#grid_body').html(html);
-        render_grids(p_ids);
-        clicker();
-    }
-});
 
 function template(data) {
     var html = '<div class="row grid_row">'
@@ -65,8 +62,7 @@ function clearAll() {
     }
     for (let i = 1; i <= num_patients; i++) {
         clicker_timeouts[i] = [];
-        let grid = $("#grid_inner_" + i);
-        grid.css('border', '1px solid black');
+        $("#grid_inner_" + i).css('border-width', '1px 1px');
     }
 
 
@@ -94,12 +90,12 @@ function play_grid(i) {
         return;
     let grid = $("#grid_inner_" + i);
     if ((i in clicked && clicked[i]) || !(i in grid_timeouts)) {
-        grid.css('border', '1px solid black');
+        grid.css('border-width', '1px 1px');
         clicked[i] = false;
         initial_draw(i);
     }
     else {
-        grid.css('border', '2px solid black');
+        grid.css('border-width', '2px 2px');
         clicked[i] = true;
         play_from_zero(i);
         play_from_six(i, full_play_time);
@@ -210,16 +206,16 @@ class RenderGraphGrid {
         this.changing = true;
         this.egodegree = -1;
         this.width = this.div_element.width();
-        this.height = 160;
+        this.height = 150;
         this.width_percent = "100%";
-        this.height_percent = 160;
+        this.height_percent = 150;
         this.rmargin = 10;
         this.lmargin = 0;
-        this.linktime = 1200;
+        this.linktime = 2000;
         this.nodetime = 10;
         this.monthtime = 4000;
         this.alphaT = 0.1;
-        this.alphaR = 0.4;
+        this.alphaR = 0.3;
         this.alphaR_change = 0.2;
         this.distanceForce = -200;
         this.linkDistance = 0;
@@ -237,7 +233,7 @@ class RenderGraphGrid {
             .attr("width", this.width_percent)
             .attr("height", this.height_percent);
 
-        var g = this.svg.append("g")
+        let g = this.svg.append("g")
              .attr("transform", "translate(" + 0 + "," + 0 + ")");
 
         this.link = g.append("g")
@@ -249,15 +245,6 @@ class RenderGraphGrid {
             .attr("stroke", "#000")
             .attr("stroke-width", 0.8)
             .selectAll(".node");
-
-        this.label = g.append("g")
-            .attr("stroke", "#000")
-            .attr("stroke-width", 0.25)
-            .selectAll("text").data(this.graph.nodes)
-            .enter().append("text")
-            .attr("dx", 3)
-            .attr("dy", ".05em")
-            .text(function(d) { if (d.name != "Patient") return ""; return "" });
 
         this.simulation = d3.forceSimulation(this.graph.nodes)
             .force("charge", d3.forceManyBody().strength(this.distanceForce))
@@ -359,11 +346,11 @@ class RenderGraphGrid {
             .attr("x2", function(d) { return d.target.x; })
             .attr("y2", function(d) { return d.target.y; });
 
-//        let links = this.graph.links.map(this.get_id);
-//        for (let n of this.graph.nodes) {
-//            n.degree = links.filter((x)=>x.split('_').includes(n.id.toString())).length
-//            if (n.name == "Patient") this.egodegree = n.degree
-//        }
+        let links = this.graph.links.map(this.get_id);
+        for (let n of this.graph.nodes) {
+            n.degree = links.filter((x)=>x.split('_').includes(n.id.toString())).length
+            if (n.name == "Patient") this.egodegree = n.degree
+        }
 
         this.svg.selectAll("circle")
             .attr("r", function (d) { return 0.4 + 0.3*d.degree})
@@ -521,20 +508,18 @@ function openFullscreen() {
     } else if (elem.msRequestFullscreen) { /* IE11 */
         elem.msRequestFullscreen();
     }
-//    clearAll();
-//    let p_ids = [...Array(num_patients).keys()].map(i => i + 1);
-//    $('#grid_body').html(template_full(p_ids));
-//    render_grids(p_ids);
-//    clicker();
+    for (let i = 1; i <= num_patients; i++)
+        $("#grid_inner_" + i).css('border-color', 'white');
+
 }
 
-function closeFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.webkitExitFullscreen) { /* Safari */
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) { /* IE11 */
-    document.msExitFullscreen();
+document.addEventListener('fullscreenchange', (event) => {
+  if (document.fullscreenElement) {
+    console.log(`Element: ${document.fullscreenElement.id} entered full-screen mode.`);
+  } else {
+      for (let i = 1; i <= num_patients; i++)
+        $("#grid_inner_" + i).css('border-color', 'black');
+    console.log('Leaving full-screen mode.');
   }
-}
+});
 

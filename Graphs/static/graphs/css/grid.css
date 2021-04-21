@@ -1,7 +1,7 @@
 .grid {
   border: 1px solid black;
   width: 16% !important;
-  margin: .3%;
+  margin: .3% !important;
   font-size: 0.6em;
   cursor: pointer;
 }
@@ -48,6 +48,8 @@
   background-color: #fefefe;
   margin: 2% auto; /* 15% from the top and centered */
   width: 70%; /* Could be more or less, depending on screen size */
+  min-width: 800px;
+  max-width: 1200px;
 }
 
 .close {
@@ -102,10 +104,15 @@
     position: absolute;
     right: 0;
     padding: 0 10px;
-    margin-top: 5px;
+    margin: -5px;
+    border: none;
+    color: green;
 }
 
 #grid_body {
-    margin-top: 10px;
     background-color: white;
+}
+
+#grid_outer {
+    padding: 30px;
 }
