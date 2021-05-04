@@ -13,11 +13,14 @@ var full_play_time = time_month_zero + time_three_and_six
 var grid_play_delay = 1000;
 var grid_play_full = 2 * full_play_time;
 var month_zeros = {}
+var page_container = $('#pagination');
 
 $(document).ready(function() {
     for (let i = 1; i <= num_patients; i++)
         fetch_data(i);
     setTimeout(register_pagination, 1000);
+    setTimeout("page_container.pagination(1)", 5000);
+    setTimeout("location.reload(true);", 2*60*1000);
 });
 
 function render_grids(p_ids) {
@@ -28,7 +31,7 @@ function render_grids(p_ids) {
 }
 
 function register_pagination() {
-    $('#pagination').pagination({
+    page_container.pagination({
         dataSource: [...Array(num_patients).keys()].map(i => i + 1),
         pageSize: grid_cols*row_per_page,
         callback: function(p_ids, pagination) {
