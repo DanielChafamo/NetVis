@@ -168,65 +168,11 @@ class RenderGraph {
                 if (d.weight == 1) return ("6, 2") });
     }
 
-    changenodes(graphmonth, month) {  
-        var in_links = this.graph.links.map(this.get_id);
-        var out_links = this[graphmonth].links.map(this.get_id);
-        var remove = in_links.filter((x)=>out_links.indexOf(x)===-1);
-        var add = out_links.filter((x)=>in_links.indexOf(x)===-1);
-        remove.sort(); add.sort(); 
-
-        let i = 1;
-        while (remove.length !== 0 || add.length !== 0) {
-            let current, from, remove_now, add_now;
-            remove_now = [];
-            add_now = [];
-            if (i % 2 == 0) {
-                if (remove.length !== 0)  {
-                    current = remove.splice(0,1)[0];
-                    remove_now = [current]
-                }
-                else {
-                    current = add.splice(0,1)[0];
-                    add_now = [current]
-                }
-            } else {
-                if (add.length !== 0)  {
-                    current = add.splice(0,1)[0];
-                    add_now = [current]
-                }
-                else {
-                    current = remove.splice(0,1)[0];
-                    remove_now = [current]
-                }
-            }
-            from = current.split('_')[0];
-            
-            while (remove.length !== 0) {
-                if (remove[0].split('_')[0] == from) remove_now.push(remove.splice(0,1)[0]);
-                else break;
-            }
-            while (add.length !== 0) {
-                if (add[0].split('_')[0] == from) add_now.push(add.splice(0,1)[0]);
-                else break;
-            } 
-            timeouts.push(setTimeout(function() {
-                for (var i = remove_now.length - 1; i >= 0; i--) {
-                    in_links = this.graph.links.map(this.get_id);
-                    this.graph.links.splice(in_links.indexOf(remove_now[i]), 1); 
-                }
-                for (var i = add_now.length - 1; i >= 0; i--) {
-                    out_links = this[graphmonth].links.map(this.get_id);
-                    this.graph.links.push(this[graphmonth].links[out_links.indexOf(add_now[i])]); 
-                } 
-                // Label currently changing node
-                for (var i = this.graph.nodes.length - 1; i >= 0; i--)
-                    this.graph.nodes[i]['changing'] = false;
-                this.graph.nodes[parseInt(from)]['changing'] = true; 
-
-                this.restart(this.alphaR_change, false);
-            }.bind(this), i*this.nodetime));
-            i ++; 
-        }
+    changenodes(graphmonth, month) {
+        timeouts.push(setTimeout(function() {
+            this.graph.links = this[graphmonth].links;
+            this.restart(this.alphaR_change, false);
+        }.bind(this), this.nodetime));
 
         timeouts.push(
             setTimeout(function() {
@@ -241,7 +187,7 @@ class RenderGraph {
                         }
                     }.bind(this), this.monthtime)
                 );     
-            }.bind(this), i*this.nodetime)
+            }.bind(this), this.nodetime)
         ); 
     }
 
