@@ -1,9 +1,13 @@
 .grid {
   border: 1px solid black;
-  width: 7.7% !important;
+  width: 16% !important;
   margin: .3% !important;
   font-size: 0.6em;
   cursor: pointer;
+}
+
+.twelve_col {
+    width: 7.7% !important;
 }
 
 .grid_row {

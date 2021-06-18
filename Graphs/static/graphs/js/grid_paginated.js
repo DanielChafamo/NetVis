@@ -1,5 +1,5 @@
 var num_patients = feats['study_id'].length;
-var grid_cols = 12;
+var grid_cols = 6;
 //row_per_page = 4;
 var row_per_page = Math.ceil(num_patients/4);
 var grid_timeouts = {};
@@ -15,14 +15,42 @@ var grid_play_delay = 1000;
 var grid_play_full = 2 * full_play_time;
 var month_zeros = {}
 var page_container = $('#pagination');
+var wide_view = 0;
+
 
 $(document).ready(function() {
     for (let i = 1; i <= num_patients; i++)
         fetch_data(i);
+    select_view();
     setTimeout(register_pagination, 1000);
     setTimeout("page_container.pagination(1)", 5000);
     setTimeout("location.reload(true);", 5*60*1000);
 });
+
+
+$(window).on('resize', function(event){
+    if (select_view()) {
+        setTimeout("page_container.pagination(1)", 100);
+    }
+});
+
+function select_view() {
+    let windowWidth = $(window).width();
+    if (wide_view <= 0 && windowWidth > 2000){
+        grid_cols = 12;
+        wide_view = 1;
+        console.log("Going to landscape view");
+        return true;
+    }
+    if (wide_view > 0 && windowWidth < 2000){
+        grid_cols = 6;
+        $(".grid").addClass('importantRule');
+        wide_view = -1;
+        console.log("Exit landscape view");
+        return true;
+    }
+    return false;
+}
 
 function render_grids(p_ids) {
     p_ids.forEach(function(pid) {
@@ -47,10 +75,11 @@ function register_pagination() {
 
 function template(data) {
     var html = '<div class="row grid_row">'
+    let wide_rule = (wide_view == 1) ? " twelve_col" : "";
     data.forEach(function(pid, index) {
         if (index % grid_cols === 0)
             html += '</div><div class="row grid_row">';
-        html += '<div class="two columns grid" id="grid_inner_' + pid + '"><div class="grid_label"><p class="grid_label"></p></div><div id="grid_' + pid +'"></div><div class="grid_month"><p class="grid_month" id="grid_' + pid + '_month"> Month 0</p></div></div>';
+        html += '<div class="two columns grid' + wide_rule + '" id="grid_inner_' + pid + '"><div class="grid_label"><p class="grid_label"></p></div><div id="grid_' + pid +'"></div><div class="grid_month"><p class="grid_month" id="grid_' + pid + '_month"> Month 0</p></div></div>';
     });
     return html;
 }
@@ -462,8 +491,8 @@ function openFullscreen() {
     } else if (elem.msRequestFullscreen) { /* IE11 */
         elem.msRequestFullscreen();
     }
-    for (let i = 1; i <= num_patients; i++)
-        $("#grid_inner_" + i).css('border-color', 'white');
+//    for (let i = 1; i <= num_patients; i++)
+//        $("#grid_inner_" + i).css('border-color', 'white');
 
 }
 
