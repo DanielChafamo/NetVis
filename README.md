@@ -1,15 +1,15 @@
 # NetVis
 visualizing networks
 
-1. disable the collectstatic during a deploy
-    heroku config:set DISABLE_COLLECTSTATIC=1
-2. deploy
-    git push heroku master
-3. run migrations (django 1.10 added at least one)
-    heroku run python manage.py migrate
-4. run collectstatic using bower
-    heroku run 'bower install --config.interactive=false;grunt prep;python manage.py collectstatic --noinput'
-5. enable collecstatic for future deploys
-    heroku config:unset DISABLE_COLLECTSTATIC
-6. try it on your own (optional)
-    heroku run python manage.py collectstatic
+Net*works 1.0 is a graphical representation of changes in the social network of stroke patients at
+3 and 6 months after an incident of ischemic stroke. The aim of the project is to prototype
+a visual representation of the transformation of social networks of stroke patients.
+The project has its inception in a study conducted
+by the Dhand Lab at Brigham and Women's Hospital examining the social aspect of stroke recovery.
+The study used a quantitative assessment tool to parametrize different facets of a patient's
+social network and analyzed the relationship between the structure of patients' social network
+and their recovery. Drawing upon the quantitative representation of social networks generated
+by the study, this project builds a graphical representation of each patient's social network
+over the course of 6 months post stroke.
+                
+                
