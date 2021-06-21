@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <title>NET*WORKS 1.0</title>
+    <meta name="description" content="">
+    <meta name="author" content="Daniel Chafamo">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'graphs/css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'graphs/css/skeleton.css' %}">
+    <link rel="stylesheet" href="{% static 'graphs/css/graph.css' %}">
+    <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="{% static 'graphs/css/nouislider.css' %}">
+    <link rel="icon" type="image/png" href="{% static 'graphs/images/networks.png' %}">
+    {% block styles %} {% endblock styles%}
+
+    {% block head %}{% endblock head %}
+</head>
+<body style="background-color:'#FFFAF0';">
+
+<div class="container">
+    <form id="target">
+        <nav class="navbar">
+            <div class="container">
+                <ul class="navbar-list">
+                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Grid' %}">Home</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="{% url 'Explore' %}">Explore Data</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="{% url 'About' %}">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        {% block search %}{% endblock search %}
+    </form>
+    {% block body %}{% endblock body %}
+
+</div>
+
+<!-- STYLES AND SCRIPTS -->
+<script>
+      var feats = {% autoescape off %}{{ feats }}{% endautoescape %};
+</script>
+<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{% static 'graphs/js/d3.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/nouislider.min.js' %}"></script>
+{% block scripts %}
+{% endblock scripts %}
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

@@ -27,11 +27,11 @@
 //       [*] time line + unnamed skeleton network that lights up
 //       [*] smoother transition
 //       [*] continuous updates
-//       [_] week and strong relationship legend
-//       [_] thicker edges
+//       [*] week and strong relationship legend
+//       [*] thicker edges
 //       [_] video bar time progression
 //       
-//       [_] 27, 72, 142, 171, 66, 41
+//       [_] 27, 72, 142, 171, 66, 41, 94
 //       
 //       --causality from correlation--
 //       hill criterion for causality
@@ -41,31 +41,58 @@
 //       
 
 var graph = null;  
-
+var graph_height = 500;
 var timeouts = [];
  
 $(document).ready(function() {   
     if (initial == -1) initial = 5;
-    select_pid(initial); 
+    select_pid(initial, false, graph_height);
 });
 
-$("#videoplay").click(function(event) {    
+$( "#target" ).submit(function( event ) {
+    let pidx = parseInt($("#patientID").val());
+    let idx = feats['study_id'].indexOf(pidx) +1;
+    if (idx == 0) {
+        alert("Invalid Patient Id: " + $("#patientID").val());
+        return;
+    }
+    location.href = "/graphs/?initial=" + idx;
+    event.preventDefault();
+});
+
+var first_play = true
+$("#videoplay").click(function(event) {
+   play_video();
+});
+
+function play_video() {
+    if (!first_play) {
+        select_pid(initial, false, graph_height);
+        $("#play-replay").removeClass("fa-repeat").addClass("fa-play");
+        first_play = true;
+    } else {
+        first_play = false;
+        $("#play-replay").removeClass("fa-play").addClass("fa-repeat");
+    }
     $("#lm0").css('-webkit-filter', 'blur(0px)');
+    fade_progress('50%');
     timeouts.push(
-        setTimeout(function() { 
-            graph.changenodes("graphRec3", '3');  
+        setTimeout(function() {
+            graph.changenodes("graphRec3", '3');
         }, 2000)
-    ); 
-});
+    );
+}
 
-function select_pid(pid) {
+// TODO: minimize calls
+function select_pid(pid, play, height) {
     $.ajax({
         url: '/jsonet/',
         data: {
             'pid': pid
         },
         dataType: 'json',
-        success: function (data) { 
+        success: function (data) {
+            initial = pid;
             clearPage();
             var graph0 = JSON.parse(data.g0),
                 graph0copy = JSON.parse(data.g0),
@@ -73,8 +100,10 @@ function select_pid(pid) {
                 graph3copy = JSON.parse(data.g3),
                 graph6 = JSON.parse(data.g6),
                 graph6copy = JSON.parse(data.g6);
-            
-            graph = new RenderGraph(graph0, graph3, graph6, "#d3-0"); 
+
+            graph_height = height;
+
+            graph = new RenderGraph(graph0, graph3, graph6, "#d3-0", graph_height);
             $("#piddisp").html("Patient " + feats['study_id'][pid-1])
             $("#netsize").html("Network size = " + (graph.egodegree + 1)); 
 
@@ -82,6 +111,8 @@ function select_pid(pid) {
             let lm3 = new StaticGraph(graph3copy, "#lm3"); 
             let lm6 = new StaticGraph(graph6copy, "#lm6"); 
 
+            if (play)
+                setTimeout(play_video, 2000);
         }
     });
 }
@@ -96,6 +127,19 @@ function clearPage() {
     $("#lm0").css('-webkit-filter', 'blur(1.5px)');
     $("#lm3").css('-webkit-filter', 'blur(1.5px)');
     $("#lm6").css('-webkit-filter', 'blur(1.5px)');
+    fade_progress('0%');
+    first_play = true;
+    $("#play-replay").removeClass("fa-repeat").addClass("fa-play");
 }   
 
 
+function fade_progress(percent) {
+    if (percent == '0%') {
+        $("#lm-progress").css('transition', 'none linear 0s');
+        $("#lm-progress").css('width', percent);
+        return;
+    };
+    $("#lm-progress").css('transition', 'all linear 6s');
+    $("#lm-progress").css('width', percent);
+
+}

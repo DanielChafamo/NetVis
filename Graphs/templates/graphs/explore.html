@@ -1,0 +1,91 @@
+{% extends 'graphs/base.html' %}
+
+{% block search %}
+{% endblock search %}
+
+{% block body %}
+<div class="row">
+    <div class="three columns" style="margin-top: 0%">
+        <!-- <h5>Filter</h5> -->
+        <h5>Filter</h5>
+        <div class="pIDs" id="pIDs"></div>
+        <div>
+            Network Size [0 - 22]
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="range0" class="sliders"></span>
+            </p>
+            Network Density [0 - 1]
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="range1" class="sliders"></span>
+            </p>
+            Constraint [18 - 112]
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="range2" class="sliders"></span>
+            </p>
+            Kin Proportion [0 - 1]
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="range3" class="sliders"></span>
+            </p>
+            Turnover Rate [0 - 100]
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="range4" class="sliders"></span>
+            </p>
+        </div>
+    </div>
+    <div class="nine columns" style="margin-top: 0%">
+        <h4 style="text-align: center"> Explore the Relationship Between Social Networks and Stroke Outcomes</h4>
+        <!-- Spread -->
+        <div class="slideshow-container">
+
+            <div class="label">PATIENT 123</div>
+            <div id="container" style="height: 70%;"></div>
+
+
+        </div>
+        <br>
+        <form id="index_graph">
+            <div class="row">
+                <div class="one columns">
+                    <label for="featureX">X:</label>
+                </div>
+                <div class="four columns noleftmargine">
+                    <select class="u-full-width" id="featureX">
+                        <option value="network.size">Network Size</option>
+                        <option value="PhyFunc_TScore">Physical Function TScore</option>
+                        <option value="SocialSat_TScore">Social Satisfaction TScore</option>
+                        <option value="smoking_prop">Smokers in Network</option>
+                        <option value="constraint">Network Constraint</option>
+                        <option value="density">Network Density</option>
+                    </select>
+                </div>
+                <div class="one columns">
+                    <label class="u-full-width" for="featureY">Y:</label>
+                </div>
+                <div class="four columns noleftmargine">
+                    <select class="u-full-width" id="featureY">
+                        <option value="PhyFunc_TScore">Physical Function TScore</option>
+                        <option value="SocialSat_TScore">Social Satisfaction TScore</option>
+                        <option value="smoking_prop">Smokers in Network</option>
+                        <option value="network.size">Network Size</option>
+                        <option value="constraint">Network Constraint</option>
+                        <option value="density">Network Density</option>
+                    </select>
+                </div>
+                <div class="two columns">
+                    <input class="button-primary" type="submit" value="Graph">
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+{% endblock body %}
+{% block scripts %}
+{% load static %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="//rawgithub.com/phpepe/highcharts-regression/master/highcharts-regression.js"></script>
+<script type="text/javascript" src="{% static 'graphs/js/index.js' %}"></script>
+{% endblock scripts %}

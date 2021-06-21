@@ -1,0 +1,122 @@
+.grid {
+  border: 1px solid black;
+  width: 16% !important;
+  margin: .3% !important;
+  font-size: 0.6em;
+  cursor: pointer;
+}
+
+.twelve_col {
+    width: 7.7% !important;
+}
+
+.grid_row {
+  width: 100%;
+}
+
+.grid_label {
+  text-align: center;
+  height: 32px;
+  margin: -8px;
+  color: #555;
+  font-size: 9px;
+  font-weight: 600;
+  line-height: 38px;
+  letter-spacing: .05rem;
+  text-decoration: none;
+}
+
+.grid_month {
+  text-align: right;
+  margin-right: 1%;
+  margin-bottom: 0;
+  font-family: monospace;
+  font-size: 8px;
+  color: #555;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 2% auto; /* 15% from the top and centered */
+  width: 70%; /* Could be more or less, depending on screen size */
+  min-width: 800px;
+  max-width: 1200px;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  margin-right: 15px;
+  cursor: pointer;
+}
+
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+}
+
+/* pagination */
+.grid_body {
+    padding-top: 50px;
+}
+
+.pagination {
+    width: 100%;
+}
+
+.paginationjs {
+    display: inline-block;
+    margin-left: 41%;
+}
+.paginationjs li {
+    list-style: none;
+    margin-bottom: 1rem;
+    float: left;
+    list-style: none;
+    padding: 10px;
+}
+
+.paginationjs a {
+    text-decoration: none;
+    color: white;
+}
+
+.paginationjs .active {
+    background-color: white;
+    border: 1px solid white;
+}
+
+.full_screen {
+    position: absolute;
+    right: 0;
+    padding: 0 10px;
+    margin: -5px;
+    border: none;
+    color: green;
+}
+
+#grid_body {
+    background-color: white;
+}
+
+#grid_outer {
+    padding: 30px;
+}

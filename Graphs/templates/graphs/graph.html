@@ -1,167 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{% extends 'graphs/base.html' %}
 
-  <meta charset="utf-8">
-  <title>NET*WORKS 1.0</title>
-  <meta name="description" content="">
-  <meta name="author" content="Daniel Chafamo">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <!-- <link href='https://fonts.googleapis.com/css?family=Titillium+Web:400,200,300,600,700' rel='stylesheet' type='text/css'> -->
-
-  {% load static %}
-
-  <link rel="stylesheet" href="{% static 'graphs/css/normalize.css' %}">
-  <link rel="stylesheet" href="{% static 'graphs/css/skeleton.css' %}">
-  <link rel="stylesheet" href="{% static 'graphs/css/graph.css' %}">
-  <link rel="stylesheet" href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
-  <link rel="stylesheet" href="{% static 'graphs/css/nouislider.css' %}"> 
-  <link rel="stylesheet" href="{% static 'graphs/css/tl.css' %}"> 
-  <link rel="icon" type="image/png" href="{% static 'graphs/images/networks.png' %}">
-
-  {% block head %}{% endblock head %}
-</head>
-<body style="background-color:'#FFFAF0';">
-
-    <div class="container">
-      <form id="target">
-        <div class="row"> 
-          <div class="four columns" style="margin-top: 2%"></div>
-          <div class="four columns" style="margin-top: 2%"> 
-              <input type="search" class="u-full-width" placeholder="Patient ID" id="patientID" required>
-          </div>  
-          <div class="four columns noleftmargine" style="margin-top: 2%">
-            <button id="submitid" type="submit" class="button-primary search"><i class="fa fa-search"></i></button>
-          </div>
-        </div>
-      </form>
-      <div class="row">
-        <div class="three columns" style="margin-top: 0% "> 
-          <!-- Side Bar -->
-          <button class="collapsible button-primary" style="margin-bottom: 0px">Filter</button>
-          <div class="content">
-            <div class="pIDs" id="pIDs"></div> 
-            <div>  
-              Network Size
-              <p class="split-para" style="margin-bottom: 0px">0 
-                <span id="range0" class="sliders"></span>
-              <span id="h79">22</span></p>
-              Network Density
-              <p class="split-para" style="margin-bottom: 0px">0 
-                <span id="range1" class="sliders"></span>
-              <span id="h79">1</span></p>
-              Constraint
-              <p class="split-para" style="margin-bottom: 0px">18 
-                <span id="range2" class="sliders"></span>
-              <span id="h79">111</span></p>
-              Kin Proportion
-              <p class="split-para" style="margin-bottom: 0px">0 
-                <span id="range3" class="sliders"></span>
-              <span id="h79">1</span></p>
-              Turnover Rate
-              <p class="split-para" style="margin-bottom: 0px">0 
-                <span id="range4" class="sliders"></span>
-              <span id="h79">100</span></p>
-            </div>
-          </div> 
-          <button class="collapsible button-primary">Properties</button>
-          <div class="content" style="margin-bottom: 100px"> 
-            <form>   
-              <h6><label class="switch">
-                <input type="checkbox" id="thersholdSlider">
-                <span class="slider round"></span>
-              </label>   Strong only</h6> 
-            </form>
-            Link Time
-            <p class="split-para" style="margin-bottom: 0px">0 
-              <span id="linktime" class="sliders"></span>
-            <span id="h79">1500</span></p>
-            Node Time
-            <p class="split-para" style="margin-bottom: 0px">0 
-              <span id="nodetime" class="sliders"></span>
-            <span id="h79">1500</span></p>
-            Month Time
-            <p class="split-para" style="margin-bottom: 0px">18 
-              <span id="monthtime" class="sliders"></span>
-            <span id="h79">1500</span></p>
-            Alpha Target
-            <p class="split-para" style="margin-bottom: 0px">0 
-              <span id="alphaT" class="sliders"></span>
-            <span id="h79">1</span></p>
-            Alpha Restart
-            <p class="split-para" style="margin-bottom: 0px">0 
-              <span id="alphaR" class="sliders"></span>
-            <span id="h79">1</span></p>
-          </div></div>
-
-        <div class="nine columns" style="margin-top: 0%">
-          
-          <!-- <video class="vid" controls autoplay>
-            <source src="{% static 'graphs/videos/p171.mov' %}" type="video/mp4"> 
-            Your browser does not support the video tag. 
-          </video> -->
-
-          <!-- Slideshow container -->
-          <div class="maincontainer"> 
-            <div class="legend"> 
-              <div class='legendhead legendtext'>Legend<br></div>
-              <div class='legendtext'>
-                <svg height="10" width="28">
-                  <line x1="0" y1="5" x2="28" y2="5" id="wties"/>
-                </svg>
-                Weak ties
-              </div>
-              <div class='legendtext'>
-                <svg height="10" width="28">
-                  <line x1="0" y1="5" x2="28" y2="5" id="sties"/>
-                </svg>
-                Strong ties
-              </div>
-            </div>  
-            <div class="label" id="netsize"> hjbh</div> 
-            <div class="mySlides fade"> 
-              <div id="d3-0"></div>  
-            </div> 
-            <div class="landmarks" id="lm0"></div>
-            <div class="spacer"></div>
-            <div class="landmarks" id="lm3"></div>
-            <div class="spacer"></div>
-            <div class="landmarks" id="lm6"></div>
-            <br>
-            <div class="labels label" id="label0">Enrollment</div>
-            <div class="spacer"></div>
-            <div class="labels label" id="label3">3 Month</div>
-            <div class="spacer"></div>
-            <div class="labels label" id="label6">6 Month</div>
-          </div>
-
-          <div style='margin: 40px auto; width:10%'>
-            <button id="videoplay" type="submit" class="button-primary vidplay"> 
-              <i class="fa fa-play"></i>
-            </button>
-          </div> <br>
-
-        </div>
-      </div>
+{% block search %}
+<div class="row">
+    <div class="four columns" style="margin-top: 2%"></div>
+    <div class="four columns" style="margin-top: 2%">
+        <input type="search" class="u-full-width" placeholder="Patient ID" id="patientID" required>
     </div>
-  
-    <!-- STYLES AND SCRIPTS --> 
-    <script>
-      var feats = {% autoescape off %}{{ feats }}{% endautoescape %};
-      var initial = {% autoescape off %}{{ initial }}{% endautoescape %};
-    </script>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script type="text/javascript" src='http://d3js.org/d3.v4.min.js'></script>
-    <script type="text/javascript" src="{% static 'graphs/js/nouislider.min.js' %}"></script> 
-    <script type="text/javascript" src="{% static 'graphs/js/RenderGraph2.js' %}" ></script>
-    <script type="text/javascript" src="{% static 'graphs/js/StaticGraph2.js' %}" ></script>
-    <script type="text/javascript" src="{% static 'graphs/js/graph.js' %}" ></script>
-    <script type="text/javascript" src="{% static 'graphs/js/sidebar.js' %}" ></script>
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-</html>
+    <div class="four columns noleftmargine" style="margin-top: 2%">
+        <button id="submitid" type="submit" class="button-primary search"><i class="fa fa-search"></i></button>
+    </div>
+</div>
+{% endblock search %}
 
+{% block body %}
+<div class="row">
+    <div class="three columns" style="margin-top: 0% ">
+        <!-- Side Bar -->
+        <button class="collapsible button-primary" style="margin-bottom: 0px">Filter</button>
+        <div class="content">
+            <div class="pIDs" id="pIDs"></div>
+            <div>
+                Network Size [0 - 22]
+                <p class="split-para" style="margin-bottom: 0px">
+                    <span id="range0" class="sliders"></span>
+                </p>
+                Network Density [0 - 1]
+                <p class="split-para" style="margin-bottom: 0px">
+                    <span id="range1" class="sliders"></span>
+                </p>
+                Constraint [18 - 112]
+                <p class="split-para" style="margin-bottom: 0px">
+                    <span id="range2" class="sliders"></span>
+                </p>
+                Kin Proportion [0 - 1]
+                <p class="split-para" style="margin-bottom: 0px">
+                    <span id="range3" class="sliders"></span>
+                </p>
+                Turnover Rate [0 - 100]
+                <p class="split-para" style="margin-bottom: 0px">
+                    <span id="range4" class="sliders"></span>
+                </p>
+            </div>
+        </div>
+        <button class="collapsible button-primary">Properties</button>
+        <div class="content" style="margin-bottom: 100px">
+            <!--            <form>   -->
+            <!--              <h6><label class="switch">-->
+            <!--                <input type="checkbox" id="thersholdSlider">-->
+            <!--                <span class="slider round"></span>-->
+            <!--              </label>   Strong only</h6> -->
+            <!--            </form>-->
+            Link Time
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="linktime" class="sliders"></span>
+            </p>
+            Node Time
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="nodetime" class="sliders"></span>
+            </p>
+            Month Time
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="monthtime" class="sliders"></span>
+            </p>
+            Alpha Target
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="alphaT" class="sliders"></span>
+            </p>
+            Alpha Restart
+            <p class="split-para" style="margin-bottom: 0px">
+                <span id="alphaR" class="sliders"></span>
+            </p>
+        </div>
+    </div>
+
+    <div class="nine columns" style="margin-top: 0%">
+
+        <!-- Slideshow container -->
+        <div class="maincontainer">
+            <div class="legend">
+                <div class='legendhead legendtext'>Legend<br></div>
+                <div class='legendtext'>
+                    <svg height="10" width="28">
+                        <line x1="0" y1="5" x2="28" y2="5" id="wties"/>
+                    </svg>
+                    Weak ties
+                </div>
+                <div class='legendtext'>
+                    <svg height="10" width="28">
+                        <line x1="0" y1="5" x2="28" y2="5" id="sties"/>
+                    </svg>
+                    Strong ties
+                </div>
+            </div>
+            <div class="pidlabel" id="piddisp"></div>
+            <div class="label" id="netsize"></div>
+            <div class="mySlides fade">
+                <div id="d3-0"></div>
+            </div>
+            <div id="lm-progress"></div>
+            <div class="lamndmark">
+                <div class="landmarks" id="lm0"></div>
+                <div class="spacer"></div>
+                <div class="landmarks" id="lm3"></div>
+                <div class="spacer"></div>
+                <div class="landmarks" id="lm6"></div>
+                <br>
+                <div class="labels label" id="label0">Enrollment</div>
+                <div class="spacer"></div>
+                <div class="labels label" id="label3">3 Month</div>
+                <div class="spacer"></div>
+                <div class="labels label" id="label6">6 Month</div>
+            </div>
+            <div style='border-top:1px solid black'>
+                <button id="videoplay" type="submit" class="button vidplay">
+                    <i class="fa fa-play" id="play-replay"></i>
+                </button>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+{% endblock body %}
+
+{% block scripts %}
+{% load static %}
+<script>
+      var initial = {% autoescape off %}{{ initial }}{% endautoescape %};
+
+</script>
+<script type="text/javascript" src="{% static 'graphs/js/RenderGraph2.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/StaticGraph2.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/graph.js' %}"></script>
+<script type="text/javascript" src="{% static 'graphs/js/sidebar.js' %}"></script>
+
+{% endblock scripts %}

@@ -11,10 +11,22 @@ for (var i = 0; i < feats['study_id'].length; i++) {
 } 
 
 
-$(".pref").click(function() { 
-    select_pid($(this).attr('value') );
+$(".pref").click(function() {
+    location.href = "/graphs/?initial="+$(this).attr('value');
 });
 
+$( "#target" ).submit(function( event ) {
+    let pidx = parseInt($("#patientID").val());
+    let idx = feats['study_id'].indexOf(pidx) +1;
+    if (idx == 0) {
+        alert("Invalid Patient Id: " + $("#patientID").val());
+        return;
+    }
+    console.log(pidx)
+    console.log(idx)
+    location.href = "/graphs/?initial=" + idx;
+    event.preventDefault();
+});
 
 var range0 = document.getElementById('range0');
 noUiSlider.create(range0, {start: [4,15], connect: true, 
@@ -77,19 +89,131 @@ function filter() {
 * 
  */
 
-var data = feats['PhyFunc_TScore']
-            .map((y,i)=> ({ 'y' : y, 
-                           'x' : feats['constraint'][i],
-                           'z' : feats['network.size'][i],
-                           'study_id' : feats['study_id'][i],
-                           'id': i+1 })).sort((entry)=>entry.x)
-for (var i = feats['PhyFunc_TScore'].length - 1; i >= 0; i--) {
-    if (isNaN(feats['PhyFunc_TScore'][i])) {
-        feats['PhyFunc_TScore'].splice(i)
-        feats['constraint'].splice(i)
-        data.splice(i)
+
+labels = {
+    'PhyFunc_TScore':'Physical Function TScore',
+    'constraint': 'Network Constraint',
+    'SocialSat_TScore': 'Social Satisfaction TScore',
+    'smoking_prop': 'Smokers in Network',
+    'network.size': 'Network Size',
+    'density': 'Network Density'
+}
+
+index_graph($("#featureX").val(), $("#featureY").val())
+
+$( "#index_graph" ).submit(function( event ) {
+    index_graph($("#featureX").val(), $("#featureY").val())
+    event.preventDefault();
+});
+
+function index_graph(feat_x, feat_y) {
+    let data = feats[feat_y]
+                .map((y,i)=> ({ 'y' : y,
+                               'x' : feats[feat_x][i],
+                               'z' : feats['network.size'][i],
+                               'study_id' : feats['study_id'][i],
+                               'id': i+1 })).sort((entry)=>entry.x)
+    let feat_x_temp = feats[feat_x];
+    let feat_y_temp = feats[feat_y];
+    for (var i = feat_y_temp.length - 1; i >= 0; i--) {
+        if (isNaN(feat_y_temp[i]) || isNaN(feat_x_temp[i])) {
+            feat_y_temp.splice(i)
+            feat_x_temp.splice(i)
+            data.splice(i)
+        }
     }
-} 
+
+
+    let fit = polynomial(feat_x_temp.map((x,i)=> [x, feat_y_temp[i]]), 1).sort();
+
+    highChartGraph(data, fit, labels[feat_x], labels[feat_y])
+}
+
+
+function highChartGraph(data, fit, feat_x_label, feat_y_label) {
+    Highcharts.chart('container', {
+
+        chart: {
+            type: 'bubble',
+            height: '60%',
+            plotBorderWidth: 1,
+            zoomType: 'xy'
+        },
+
+        title: {
+            text: feat_x_label + ' Versus ' + feat_y_label
+        },
+
+        xAxis: {
+            title: {
+                enabled: true,
+                text: feat_x_label
+            },
+            startOnTick: true,
+            endOnTick: true,
+            showLastLabel: true,
+            gridLineWidth: 1
+        },
+
+        yAxis: {
+            title: {
+                text: feat_y_label
+            },
+            startOnTick: true,
+            endOnTick: true,
+            gridLineWidth: 1
+        },
+
+        legend: {
+            enabled: false
+        },
+
+        tooltip: {
+            headerFormat: '<b>{point.study_id}</b><br>',
+            pointFormat: '<b>{point.study_id}</b><br>'
+        },
+
+        series:
+        [{
+            type: 'line',
+            name: 'Regression Line',
+            data: fit,
+            color: '#F00',
+            marker: {
+                enabled: false
+            },
+            states: {
+                hover: {
+                    lineWidth: 0
+                }
+            },
+            enableMouseTracking: false
+        }, {
+            data: data,
+            name: 'patient',
+            id: 'patient',
+            allowPointSelect: true,
+            marker: {
+                fillColor: {
+                    radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
+                    stops: [
+                        [0, 'rgba(255,255,255,0.5)'],
+                        [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.5).get('rgba')]
+                    ]
+                }
+            },
+            cursor: 'pointer',
+                events: {
+                    click: function (event) {
+                        console.log(event.point.id)
+                        location.href = "/graphs/?initial="+event.point.id;
+                    }
+                }
+        }]
+
+    });
+}
+
 
 function round(number, precision) {
     const factor = 10 ** precision;
@@ -115,14 +239,14 @@ function gaussianElimination(input, order) {
         }
 
         for (let j = i + 1; j < n; j++) {
-            for (let k = n; k >= i; k--) 
-                matrix[k][j] -= (matrix[k][i] * matrix[i][j]) / matrix[i][i]; 
+            for (let k = n; k >= i; k--)
+                matrix[k][j] -= (matrix[k][i] * matrix[i][j]) / matrix[i][i];
         }
     }
 
     for (let j = n - 1; j >= 0; j--) {
         let total = 0;
-        for (let k = j + 1; k < n; k++) 
+        for (let k = j + 1; k < n; k++)
             total += matrix[k][j] * coefficients[k];
         coefficients[j] = (matrix[n][j] - total) / matrix[j][j];
     }
@@ -172,94 +296,8 @@ function polynomial(data, order) {
       ),
     ]);
 
-    const points = data.map(point => predict(point[0])); 
+    const points = data.map(point => predict(point[0]));
 
     return points;
 }
-
-
-var dat = feats['constraint'].map((x,i)=> [x, feats['PhyFunc_TScore'][i]])
-var fit = polynomial(dat, 1).sort() 
-console.log(fit)
- 
-Highcharts.chart('container', {
-
-    chart: {
-        type: 'bubble',
-        plotBorderWidth: 1,
-        zoomType: 'xy'
-    },
-
-    title: {
-        text: 'Physical Function TScore Versus Constraint'
-    }, 
-
-    xAxis: {
-        title: {
-            enabled: true,
-            text: 'Constraint'
-        }, 
-        startOnTick: true,
-        endOnTick: true,
-        showLastLabel: true, 
-        gridLineWidth: 1
-    },
-
-    yAxis: {
-        title: {
-            text: 'Physical Function TScore'
-        }, 
-        startOnTick: true,
-        endOnTick: true, 
-        gridLineWidth: 1
-    }, 
-
-    legend: {
-        enabled: false
-    },  
-
-    tooltip: {
-        headerFormat: '<b>{point.study_id}</b><br>',
-        pointFormat: '<b>{point.study_id}</b><br>'
-    }, 
-
-    series: 
-    [{
-        type: 'line',
-        name: 'Regression Line',
-        data: fit,
-        color: '#F00',
-        marker: {
-            enabled: false
-        },
-        states: {
-            hover: {
-                lineWidth: 0
-            }
-        },
-        enableMouseTracking: false
-    }, {
-        data: data,
-        name: 'patient',
-        id: 'patient',
-        allowPointSelect: true,
-        marker: { 
-            fillColor: {
-                radialGradient: { cx: 0.4, cy: 0.3, r: 0.7 },
-                stops: [
-                    [0, 'rgba(255,255,255,0.5)'],
-                    [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0.5).get('rgba')]
-                ]
-            }
-        },
-        cursor: 'pointer',
-            events: {
-                click: function (event) {
-                    console.log(event.point.id)
-                    location.href = "/graphs/?initial="+event.point.id;
-                }
-            }
-    }]
-
-});
 

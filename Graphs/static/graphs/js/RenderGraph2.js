@@ -1,23 +1,22 @@
 var colors = {}
     colors[1] ='black';
     colors[2] ='white';
-    colors[-1] = 'blue';
-    // '#1f77b4';
+    colors[-1] = 'cornflowerblue';
     colors[-2] = 'red';
-    // '#d62728';  
 
 class RenderGraph {
-    constructor(graph, graph3, graph6, div_id) { 
+    constructor(graph, graph3, graph6, div_id, height=500) {
         this.graph = graph; 
         this.changing = true;
         this.egodegree = -1;
         this.width = 850;
-        this.height = 500;
+        this.height = height;
         this.linktime = 1000;
-        this.nodetime = 1700;
-        this.monthtime = 200;
-        this.alphaT = 0.1;
-        this.alphaR = 0.1;
+        this.nodetime = 10;
+        this.monthtime = 4000;
+        this.alphaT = 0.2;
+        this.alphaR = 0.4;
+        this.alphaR_change = 0.2;
 
         for (var i = this.graph.nodes.length - 1; i >= 0; i--) {
             if (this.graph.nodes[i]['name'] == "Ego") {
@@ -60,7 +59,7 @@ class RenderGraph {
             .force("x", d3.forceX(this.width/2))
             .force("y", d3.forceY(this.height/2))
             .alphaTarget(this.alphaT)
-            .alphaDecay(0.005)
+            .alphaDecay(0.03)
             .on("tick", function () {this.ticked();}.bind(this)); 
 
 
@@ -69,11 +68,17 @@ class RenderGraph {
         this.graphRec3 = JSON.parse(JSON.stringify(graph3)); 
         this.graphRec6 = JSON.parse(JSON.stringify(graph6));  
 
-        this.restart();
+        this.restart(this.alphaR, true);
 
     } 
 
-    restart() {  
+    restart(alphaR, initial) {
+        if (initial) {
+            for (let n of this.graph.nodes) {
+                n.x = this.width / 2 + 50*Math.random();
+                n.y = this.height / 2 + 50*Math.random();
+            }
+        }
         // Handle Node changes and attributes
         this.node = this.node
             .data(this.graph.nodes, function(d) { 
@@ -163,70 +168,17 @@ class RenderGraph {
                 if (d.weight == 1) return ("6, 2") });
     }
 
-    changenodes(graphmonth, month) {  
-        var in_links = this.graph.links.map(this.get_id);
-        var out_links = this[graphmonth].links.map(this.get_id);
-        var remove = in_links.filter((x)=>out_links.indexOf(x)===-1);
-        var add = out_links.filter((x)=>in_links.indexOf(x)===-1);
-        remove.sort(); add.sort(); 
-
-        let i = 1;
-        while (remove.length !== 0 || add.length !== 0) {
-            let current, from, remove_now, add_now;
-            remove_now = [];
-            add_now = [];
-            if (i % 2 == 0) {
-                if (remove.length !== 0)  {
-                    current = remove.splice(0,1)[0];
-                    remove_now = [current]
-                }
-                else {
-                    current = add.splice(0,1)[0];
-                    add_now = [current]
-                }
-            } else {
-                if (add.length !== 0)  {
-                    current = add.splice(0,1)[0];
-                    add_now = [current]
-                }
-                else {
-                    current = remove.splice(0,1)[0];
-                    remove_now = [current]
-                }
-            }
-            from = current.split('_')[0];
-            
-            while (remove.length !== 0) {
-                if (remove[0].split('_')[0] == from) remove_now.push(remove.splice(0,1)[0]);
-                else break;
-            }
-            while (add.length !== 0) {
-                if (add[0].split('_')[0] == from) add_now.push(add.splice(0,1)[0]);
-                else break;
-            } 
-            timeouts.push(setTimeout(function() {
-                for (var i = remove_now.length - 1; i >= 0; i--) {
-                    in_links = this.graph.links.map(this.get_id);
-                    this.graph.links.splice(in_links.indexOf(remove_now[i]), 1); 
-                }
-                for (var i = add_now.length - 1; i >= 0; i--) {
-                    out_links = this[graphmonth].links.map(this.get_id);
-                    this.graph.links.push(this[graphmonth].links[out_links.indexOf(add_now[i])]); 
-                } 
-                // Label currently changing node
-                for (var i = this.graph.nodes.length - 1; i >= 0; i--)
-                    this.graph.nodes[i]['changing'] = false;
-                this.graph.nodes[parseInt(from)]['changing'] = true; 
-
-                this.restart();
-            }.bind(this), i*this.nodetime));
-            i ++; 
-        }
+    changenodes(graphmonth, month) {
+        timeouts.push(setTimeout(function() {
+            this.graph.links = this[graphmonth].links;
+            this.restart(this.alphaR_change, false);
+        }.bind(this), this.nodetime));
 
         timeouts.push(
-            setTimeout(function() { 
-                document.getElementById("netsize").innerHTML = "Network size = " + (this.egodegree + 1); 
+            setTimeout(function() {
+                $("#netsize").html("Network size = " + (this.get_ego_degree(this[graphmonth]) + 1));
                 $("#lm"+month).css('-webkit-filter', 'blur(0px)');
+                fade_progress('100%');
                 timeouts.push(
                     setTimeout(function() {  
                         if (this.changing) {
@@ -235,7 +187,7 @@ class RenderGraph {
                         }
                     }.bind(this), this.monthtime)
                 );     
-            }.bind(this), i*this.nodetime)
+            }.bind(this), this.nodetime)
         ); 
     }
 
@@ -253,7 +205,15 @@ class RenderGraph {
             if (this.graphRec.links[i].weight > thresh) 
                 this.graph.links.push(this.graphRec.links[i]);
         }
-        this.restart();
+        this.restart(this.alphaR_change, false);
+    }
+
+    get_ego_degree(graph) {
+        let links = graph.links.map(this.get_id);
+        for (let n of graph.nodes) {
+            if (n.name == "Ego")
+                return links.filter((x)=>x.split('_').includes(n.id.toString())).length;
+        }
     }
 
     dragstarted(d) {
@@ -273,7 +233,8 @@ class RenderGraph {
         d.fy = null;
     } 
     getPos(d, axis) {  
-        let bound = (axis == "x") ? this.width : this.height  
+        let bound = (axis == "x") ? this.width : this.height
+        if (d.name == "Patient") d[axis] = bound / 2;
         return d[axis] = Math.max(20, Math.min(bound-20, d[axis]));
     }
   
